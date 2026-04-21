@@ -1,0 +1,2314 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ragini Games | Eğlenceli Oyun Dünyası</title>
+    <meta name="description"
+        content="Ragini Games ile pastel renklerde, yumuşak tasarımlı ve çocuk dostu 2D oyunları keşfet.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap"
+        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <style>
+        :root {
+            --bg: #fffaf7;
+            --surface: rgba(255, 255, 255, 0.8);
+            --surface-strong: #ffffff;
+            --text: #4f4a67;
+            --heading: #55497d;
+            --muted: #847f9e;
+            --border: rgba(148, 140, 190, 0.18);
+            --pink: #ffc6de;
+            --lavender: #d9c8ff;
+            --sky: #cfe8ff;
+            --mint: #cdf5df;
+            --peach: #ffd8bf;
+            --yellow: #ffe9a8;
+            --shadow: 0 20px 45px rgba(202, 184, 228, 0.28);
+            --radius-xl: 34px;
+            --radius-lg: 26px;
+            --radius-md: 20px;
+            --font-heading: "Fredoka", sans-serif;
+            --font-body: "Nunito", sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            color: var(--text);
+            font-family: var(--font-body);
+            background:
+                radial-gradient(circle at top left, rgba(255, 198, 222, 0.65), transparent 30%),
+                radial-gradient(circle at top right, rgba(207, 232, 255, 0.7), transparent 32%),
+                radial-gradient(circle at bottom center, rgba(205, 245, 223, 0.55), transparent 34%),
+                linear-gradient(180deg, #fffdfb 0%, #fff7fb 45%, #fefcf7 100%);
+            overflow-x: hidden;
+        }
+
+        body::before,
+        body::after {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        body::before {
+            background-image: radial-gradient(rgba(255, 255, 255, 0.55) 1px, transparent 1px);
+            background-size: 22px 22px;
+            opacity: 0.4;
+        }
+
+        body::after {
+            background:
+                radial-gradient(circle at 18% 25%, rgba(255, 214, 232, 0.7), transparent 18%),
+                radial-gradient(circle at 82% 22%, rgba(210, 235, 255, 0.65), transparent 18%),
+                radial-gradient(circle at 52% 82%, rgba(214, 247, 225, 0.6), transparent 22%);
+            filter: blur(16px);
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        section {
+            position: relative;
+            padding: 88px 0;
+        }
+
+        .section-intro {
+            max-width: 620px;
+            margin-bottom: 32px;
+        }
+
+        .section-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.72);
+            border: 1px solid var(--border);
+            box-shadow: 0 8px 20px rgba(234, 221, 247, 0.22);
+            color: #8b78b1;
+            font-size: 0.84rem;
+            font-weight: 800;
+            letter-spacing: 0.03em;
+        }
+
+        .section-title {
+            margin: 16px 0 12px;
+            color: var(--heading);
+            font-family: var(--font-heading);
+            font-size: clamp(2rem, 4vw, 3.3rem);
+            line-height: 1.08;
+        }
+
+        .accent {
+            color: #8a78d6;
+        }
+
+        .section-copy,
+        .muted {
+            color: var(--muted);
+            font-size: 1.02rem;
+            line-height: 1.8;
+        }
+
+        .soft-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(10px);
+        }
+
+        .lift {
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .lift:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 26px 48px rgba(202, 184, 228, 0.34);
+        }
+
+        .btn-soft {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            min-width: 158px;
+            padding: 14px 24px;
+            border-radius: 999px;
+            font-weight: 800;
+            border: 0;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .btn-soft:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-soft.primary {
+            background: linear-gradient(135deg, #cbb7ff, #ffc9de);
+            color: #5b4c86;
+            box-shadow: 0 14px 28px rgba(214, 193, 244, 0.42);
+        }
+
+        .btn-soft.secondary {
+            background: rgba(255, 255, 255, 0.82);
+            color: #6d6590;
+            border: 1px solid var(--border);
+            box-shadow: 0 10px 24px rgba(226, 218, 245, 0.24);
+        }
+
+        .site-navbar {
+            padding: 20px 0;
+            transition: padding 0.25s ease;
+        }
+
+        .site-navbar .nav-shell {
+            position: relative;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px 22px;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(255, 255, 255, 0.82));
+            border: 1px solid rgba(255, 255, 255, 0.88);
+            border-radius: 999px;
+            padding: 16px 22px;
+            box-shadow:
+                0 24px 44px rgba(214, 198, 239, 0.3),
+                inset 0 2px 0 rgba(255, 255, 255, 0.95),
+                inset 0 -12px 20px rgba(235, 229, 250, 0.42);
+            backdrop-filter: blur(14px);
+            overflow: hidden;
+            transition: box-shadow 0.25s ease, background 0.25s ease, transform 0.25s ease;
+        }
+
+        .site-navbar .nav-shell::before,
+        .site-navbar .nav-shell::after {
+            content: "";
+            position: absolute;
+            pointer-events: none;
+            border-radius: 999px;
+        }
+
+        .site-navbar .nav-shell::before {
+            inset: 4px 90px auto 26px;
+            height: 46%;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0));
+            opacity: 0.9;
+        }
+
+        .site-navbar .nav-shell::after {
+            width: 116px;
+            height: 116px;
+            right: -26px;
+            top: -38px;
+            background: radial-gradient(circle, rgba(217, 200, 255, 0.5), rgba(217, 200, 255, 0.08) 60%, transparent 70%);
+            filter: blur(4px);
+        }
+
+        .site-navbar.scrolled {
+            padding: 14px 0;
+        }
+
+        .site-navbar.scrolled .nav-shell {
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(252, 249, 255, 0.9));
+            box-shadow:
+                0 22px 38px rgba(207, 192, 232, 0.34),
+                inset 0 2px 0 rgba(255, 255, 255, 0.98),
+                inset 0 -10px 18px rgba(236, 231, 249, 0.46);
+        }
+
+        .brand-mark {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--heading);
+            font-family: var(--font-heading);
+            font-size: 1.15rem;
+        }
+
+        .brand-badge {
+            width: 46px;
+            height: 46px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 16px;
+            background: linear-gradient(135deg, var(--lavender), var(--pink));
+            color: #64568b;
+            box-shadow: 0 10px 24px rgba(214, 196, 242, 0.42);
+        }
+
+        .brand-mark small {
+            display: block;
+            margin-top: 2px;
+            color: #9a91b3;
+            font-family: var(--font-body);
+            font-size: 0.78rem;
+            font-weight: 700;
+        }
+
+        .header-brand {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            gap: 0;
+            min-width: 0;
+            flex: 0 0 auto;
+            margin-right: auto;
+        }
+
+        .header-logo-shell {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: clamp(190px, 18vw, 250px);
+            padding: 10px 14px;
+            border-radius: 999px;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(247, 241, 255, 0.88));
+            border: 1px solid rgba(204, 192, 235, 0.3);
+            box-shadow:
+                0 12px 26px rgba(217, 203, 242, 0.22),
+                inset 0 2px 0 rgba(255, 255, 255, 0.96),
+                inset 0 -10px 14px rgba(240, 232, 251, 0.48);
+            overflow: hidden;
+        }
+
+        .header-logo-shell::before {
+            content: "";
+            position: absolute;
+            inset: 4px 18px auto;
+            height: 48%;
+            border-radius: 999px;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0));
+            opacity: 0.9;
+        }
+
+        .header-logo-img {
+            position: relative;
+            z-index: 1;
+            display: block;
+            width: 100%;
+            height: 62px;
+            object-fit: cover;
+            object-position: center;
+            border-radius: 999px;
+        }
+
+        .navbar-toggler {
+            border: 0;
+            position: relative;
+            z-index: 1;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(238, 230, 250, 0.88));
+            border-radius: 18px;
+            padding: 11px 13px;
+            color: #6b618e;
+            box-shadow:
+                0 10px 20px rgba(217, 201, 242, 0.28),
+                inset 0 2px 0 rgba(255, 255, 255, 0.98);
+        }
+
+        #mainNav {
+            position: relative;
+            z-index: 1;
+            flex-basis: 100%;
+        }
+
+        .nav-links-bubble {
+            gap: 2px;
+        }
+
+        .navbar-nav .nav-link {
+            position: relative;
+            color: #7a7197;
+            font-weight: 800;
+            padding: 0.8rem 1.1rem !important;
+            border-radius: 999px;
+            transition: color 0.2s ease, transform 0.2s ease, background 0.2s ease;
+        }
+
+        .navbar-nav .nav-link:hover,
+        .navbar-nav .nav-link.active {
+            color: #63558e;
+            background: rgba(255, 255, 255, 0.68);
+            transform: translateY(-1px);
+        }
+
+        .nav-cta {
+            position: relative;
+            z-index: 1;
+            min-width: 190px;
+            padding-inline: 28px;
+            border: 1px solid rgba(255, 255, 255, 0.92);
+            background:
+                linear-gradient(180deg, rgba(255, 255, 255, 0.42), rgba(255, 255, 255, 0) 42%),
+                linear-gradient(135deg, #d2bfff, #ffc8dc);
+            color: #614f90;
+            box-shadow:
+                0 16px 28px rgba(214, 193, 244, 0.34),
+                inset 0 2px 0 rgba(255, 255, 255, 0.96),
+                inset 0 -10px 16px rgba(243, 182, 217, 0.28),
+                inset 0 12px 18px rgba(255, 255, 255, 0.16);
+        }
+
+        .nav-cta:hover {
+            box-shadow:
+                0 18px 32px rgba(214, 193, 244, 0.42),
+                inset 0 2px 0 rgba(255, 255, 255, 0.98),
+                inset 0 -10px 16px rgba(243, 182, 217, 0.32),
+                inset 0 12px 18px rgba(255, 255, 255, 0.2);
+        }
+
+        @media (min-width: 992px) {
+            .site-navbar .nav-shell {
+                flex-wrap: nowrap;
+            }
+
+            #mainNav {
+                flex-basis: auto;
+                flex-grow: 1;
+                display: flex !important;
+                align-items: center;
+                justify-content: flex-end;
+                gap: 14px;
+                min-width: 0;
+            }
+
+            .nav-links-bubble {
+                margin-left: auto;
+                margin-right: 10px;
+                padding: 8px 12px;
+                border-radius: 999px;
+                background: linear-gradient(180deg, rgba(255, 255, 255, 0.74), rgba(255, 255, 255, 0.56));
+                border: 1px solid rgba(200, 188, 232, 0.24);
+                box-shadow:
+                    inset 0 2px 0 rgba(255, 255, 255, 0.92),
+                    inset 0 -10px 16px rgba(237, 231, 249, 0.42);
+            }
+        }
+
+        .hero {
+            padding-top: 160px;
+            padding-bottom: 88px;
+        }
+
+        .hero-note {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.86);
+            border: 1px solid var(--border);
+            color: #8d7db5;
+            font-weight: 800;
+            box-shadow: 0 10px 24px rgba(227, 217, 243, 0.24);
+        }
+
+        .hero-title {
+            margin: 22px 0 18px;
+            color: var(--heading);
+            font-family: var(--font-heading);
+            font-size: clamp(2.8rem, 7vw, 5.6rem);
+            line-height: 0.98;
+        }
+
+        .bounce-word {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .bounce-word span {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 0.95em;
+            animation: hop 1.9s ease-in-out infinite;
+            animation-delay: calc(var(--i) * 0.12s);
+            transform-origin: center bottom;
+        }
+
+        .bounce-word span:nth-child(1) {
+            color: #f18eb7;
+        }
+
+        .bounce-word span:nth-child(2) {
+            color: #8f7ce4;
+        }
+
+        .bounce-word span:nth-child(3) {
+            color: #79b8ff;
+        }
+
+        .bounce-word span:nth-child(4) {
+            color: #77c7a6;
+        }
+
+        .bounce-word span:nth-child(5) {
+            color: #f2ab7d;
+        }
+
+        .bounce-word span:nth-child(6) {
+            color: #a88ef2;
+        }
+
+        .hero-subtitle {
+            max-width: 560px;
+            color: var(--muted);
+            font-size: 1.06rem;
+            line-height: 1.9;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-top: 28px;
+        }
+
+        .hero-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 28px;
+        }
+
+        .hero-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 14px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid var(--border);
+            color: #7d7398;
+            font-weight: 800;
+        }
+
+        .hero-art {
+            position: relative;
+            min-height: 480px;
+        }
+
+        .play-panel {
+            position: relative;
+            padding: 28px;
+            min-height: 460px;
+            overflow: hidden;
+        }
+
+        .play-panel::before,
+        .play-panel::after {
+            content: "";
+            position: absolute;
+            border-radius: 50%;
+            z-index: 0;
+        }
+
+        .play-panel::before {
+            width: 210px;
+            height: 210px;
+            background: rgba(255, 198, 222, 0.7);
+            top: -30px;
+            right: -30px;
+        }
+
+        .play-panel::after {
+            width: 180px;
+            height: 180px;
+            background: rgba(207, 232, 255, 0.8);
+            bottom: -20px;
+            left: -25px;
+        }
+
+        .toy-stage {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            height: 100%;
+            border-radius: 28px;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.25));
+            border: 2px dashed rgba(163, 151, 213, 0.28);
+            padding: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .toy-console {
+            position: relative;
+            width: min(100%, 420px);
+            aspect-ratio: 16 / 10;
+            border-radius: 28px;
+            background: linear-gradient(145deg, #ffffff, #fff5fb);
+            box-shadow: 0 22px 36px rgba(212, 195, 235, 0.35);
+            border: 1px solid rgba(192, 181, 228, 0.28);
+        }
+
+        .toy-console::before {
+            content: "";
+            position: absolute;
+            inset: 18px;
+            border-radius: 28px;
+            background: linear-gradient(160deg, var(--lavender), var(--pink), var(--sky));
+            opacity: 0.55;
+        }
+
+        .toy-screen,
+        .toy-cloud,
+        .toy-star,
+        .toy-coin,
+        .toy-badge {
+            position: absolute;
+            z-index: 2;
+        }
+
+        .toy-screen {
+            top: 14px;
+            left: 14px;
+            right: 14px;
+            bottom: 52px;
+            border-radius: 18px;
+            background: linear-gradient(180deg, #fefeff, #fff6fb);
+            border: 1px solid rgba(180, 170, 223, 0.26);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow: inset 0 0 0 6px rgba(255, 255, 255, 0.45);
+        }
+
+        .toy-screen i {
+            font-size: 4rem;
+            color: #8d7cdf;
+        }
+
+        .toy-cloud,
+        .toy-star,
+        .toy-coin {
+            width: 64px;
+            height: 64px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(196, 186, 228, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 16px 26px rgba(221, 208, 242, 0.34);
+        }
+
+        .toy-cloud {
+            top: -12px;
+            left: -12px;
+            color: #7ab6f7;
+            z-index: 3;
+        }
+
+        .toy-star {
+            top: -12px;
+            right: -12px;
+            color: #f59dbf;
+            z-index: 3;
+        }
+
+        .toy-coin {
+            display: none;
+        }
+
+        .toy-badge {
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 48px;
+            padding: 8px 16px;
+            border-radius: 0 0 28px 28px;
+            background: rgba(255, 255, 255, 0.95);
+            border-top: 1px solid rgba(190, 178, 229, 0.22);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #756b97;
+            font-weight: 800;
+            font-size: 0.82rem;
+        }
+
+        .toy-badge small {
+            display: block;
+            color: #a298bb;
+            font-size: 0.76rem;
+            font-weight: 600;
+        }
+
+        .float-soft {
+            animation: bob 4.6s ease-in-out infinite;
+        }
+
+        .game-card,
+        .trend-card,
+        .why-card,
+        .category-card {
+            height: 100%;
+            padding: 20px;
+        }
+
+        /* ── Game Grid & Cards ── */
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 28px;
+        }
+
+        .game-card {
+            position: relative;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.28s ease, box-shadow 0.28s ease;
+        }
+
+        .game-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 32px 56px rgba(202, 184, 228, 0.38);
+        }
+
+        .game-thumb {
+            position: relative;
+            height: 240px;
+            border-radius: 18px;
+            margin-bottom: 18px;
+            overflow: hidden;
+            border: 1px solid rgba(183, 171, 223, 0.22);
+            background: linear-gradient(135deg, #ffd8e8, #d6ccff);
+        }
+
+        .game-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top center;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+
+        .game-card:hover .game-thumb img {
+            transform: scale(1.05);
+        }
+
+        .game-thumb-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .game-thumb-placeholder i {
+            font-size: 3.5rem;
+            color: rgba(102, 89, 150, 0.7);
+        }
+
+        .thumb-1 {
+            background: linear-gradient(135deg, #ffd8e8, #d6ccff);
+        }
+
+        .thumb-2 {
+            background: linear-gradient(135deg, #ffe0c9, #fff1b7);
+        }
+
+        .thumb-3 {
+            background: linear-gradient(135deg, #cfe8ff, #d7d0ff);
+        }
+
+        .thumb-4 {
+            background: linear-gradient(135deg, #c8f3dd, #d8f0ff);
+        }
+
+        .thumb-5 {
+            background: linear-gradient(135deg, #ffd7c6, #ffd8ef);
+        }
+
+        .thumb-6 {
+            background: linear-gradient(135deg, #fff0b5, #d8ddff);
+        }
+
+        .game-badge-new {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            padding: 5px 12px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, #f18eb7, #a97de8);
+            color: #fff;
+            font-size: 0.72rem;
+            font-weight: 800;
+            letter-spacing: 0.04em;
+            box-shadow: 0 6px 14px rgba(241, 142, 183, 0.38);
+            z-index: 2;
+        }
+
+        /* ── Today's Game Banner ── */
+        .todays-game-banner {
+            position: relative;
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.28s ease, box-shadow 0.28s ease;
+            display: block;
+            text-decoration: none;
+        }
+
+        .todays-game-banner:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 36px 64px rgba(180, 160, 220, 0.4);
+        }
+
+        .todays-game-inner {
+            position: relative;
+            min-height: 340px;
+            display: flex;
+            align-items: flex-end;
+            overflow: hidden;
+            border-radius: var(--radius-xl);
+        }
+
+        .todays-game-img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            transition: transform 0.5s ease;
+        }
+
+        .todays-game-banner:hover .todays-game-img {
+            transform: scale(1.04);
+        }
+
+        .todays-game-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(60, 40, 90, 0.85) 0%, rgba(60, 40, 90, 0.2) 55%, transparent 100%);
+        }
+
+        .todays-game-content {
+            position: relative;
+            z-index: 2;
+            padding: 32px;
+            width: 100%;
+        }
+
+        .todays-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            backdrop-filter: blur(8px);
+            color: #fff;
+            font-size: 0.82rem;
+            font-weight: 800;
+            margin-bottom: 14px;
+        }
+
+        .todays-game-title {
+            font-family: var(--font-heading);
+            font-size: clamp(1.6rem, 3.5vw, 2.6rem);
+            color: #fff;
+            margin-bottom: 8px;
+            line-height: 1.1;
+        }
+
+        .todays-game-category {
+            color: rgba(255, 255, 255, 0.78);
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+
+        .todays-game-play {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 13px 26px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, #cbb7ff, #ffc9de);
+            color: #5b4c86;
+            font-weight: 800;
+            font-size: 0.95rem;
+            box-shadow: 0 10px 26px rgba(214, 193, 244, 0.5);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .todays-game-play:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 16px 32px rgba(214, 193, 244, 0.6);
+        }
+
+        /* placeholder bg for today's game when no image */
+        .todays-placeholder-bg {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, #d6ccff 0%, #ffd8e8 60%, #cfe8ff 100%);
+        }
+
+        /* ── Category Filter Tabs ── */
+        .cat-filter-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 32px;
+        }
+
+        .cat-filter-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 10px 18px;
+            border-radius: 999px;
+            border: 1.5px solid var(--border);
+            background: rgba(255, 255, 255, 0.8);
+            color: #7b7099;
+            font-weight: 800;
+            font-size: 0.86rem;
+            cursor: pointer;
+            transition: all 0.22s ease;
+        }
+
+        .cat-filter-btn:hover,
+        .cat-filter-btn.active {
+            background: linear-gradient(135deg, #cbb7ff, #ffc9de);
+            border-color: transparent;
+            color: #5b4c86;
+            box-shadow: 0 8px 20px rgba(214, 193, 244, 0.34);
+            transform: translateY(-2px);
+        }
+
+        /* ── Play Button on Card ── */
+        .btn-play {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 11px 20px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, #cbb7ff, #ffc9de);
+            color: #5b4c86;
+            font-weight: 800;
+            font-size: 0.88rem;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            text-decoration: none;
+            box-shadow: 0 8px 18px rgba(214, 193, 244, 0.36);
+        }
+
+        .btn-play:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 14px 28px rgba(214, 193, 244, 0.46);
+            color: #5b4c86;
+        }
+
+        .thumb-icon,
+        .thumb-mini {
+            position: absolute;
+            color: rgba(102, 89, 150, 0.82);
+        }
+
+        .thumb-icon {
+            left: 24px;
+            bottom: 24px;
+            font-size: 3.25rem;
+        }
+
+        .thumb-mini {
+            right: 22px;
+            top: 18px;
+            font-size: 1.35rem;
+        }
+
+        .meta-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.82);
+            border: 1px solid var(--border);
+            color: #7b7099;
+            font-size: 0.84rem;
+            font-weight: 800;
+        }
+
+        .score {
+            color: #f1a48c;
+            font-weight: 900;
+        }
+
+        .game-card h3,
+        .trend-card h3,
+        .category-card h3,
+        .why-card h3 {
+            color: var(--heading);
+            font-family: var(--font-heading);
+            font-size: 1.32rem;
+            margin-bottom: 10px;
+        }
+
+        .game-card p,
+        .trend-card p,
+        .category-card p,
+        .why-card p {
+            color: var(--muted);
+            line-height: 1.75;
+            margin-bottom: 16px;
+        }
+
+        .card-bottom {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .small-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 14px;
+            border-radius: 999px;
+            background: #ffffff;
+            border: 1px solid var(--border);
+            color: #756b97;
+            font-weight: 800;
+        }
+
+        .tiny-note {
+            color: #9a90b5;
+            font-weight: 800;
+            font-size: 0.9rem;
+        }
+
+        .trend-card {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            align-items: stretch;
+            padding: 0;
+            overflow: hidden;
+            border-radius: var(--radius-lg);
+            transition: transform 0.28s ease, box-shadow 0.28s ease;
+        }
+
+        .trend-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 32px 56px rgba(202, 184, 228, 0.4);
+        }
+
+        .trend-card-top {
+            padding: 24px 24px 16px;
+            position: relative;
+        }
+
+        .trend-card-bottom {
+            padding: 0 24px 22px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .trend-num {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 38px;
+            height: 38px;
+            border-radius: 12px;
+            font-family: var(--font-heading);
+            font-size: 0.95rem;
+            font-weight: 900;
+            margin-bottom: 14px;
+        }
+
+        .trend-play-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 10px 18px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, #cbb7ff, #ffc9de);
+            color: #5b4c86;
+            font-weight: 800;
+            font-size: 0.85rem;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 8px 18px rgba(214, 193, 244, 0.35);
+            white-space: nowrap;
+        }
+
+        .trend-play-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 14px 28px rgba(214, 193, 244, 0.48);
+            color: #5b4c86;
+        }
+
+        .trend-stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 12px;
+        }
+
+        .trend-chip {
+            padding: 9px 12px;
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.85);
+            border: 1px solid var(--border);
+            color: #83789f;
+            font-weight: 800;
+            font-size: 0.85rem;
+        }
+
+        /* ── Category Cards ── */
+        .category-card {
+            position: relative;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            padding: 0;
+            transition: transform 0.28s ease, box-shadow 0.28s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .category-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 28px 52px rgba(200, 180, 230, 0.4);
+        }
+
+        .cat-card-top {
+            padding: 28px 24px 20px;
+            display: flex;
+            align-items: flex-start;
+            gap: 18px;
+        }
+
+        .cat-icon-wrap {
+            flex-shrink: 0;
+            width: 60px;
+            height: 60px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            background: rgba(255, 255, 255, 0.65);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            box-shadow: 0 8px 20px rgba(200, 180, 230, 0.22);
+            transition: transform 0.25s ease;
+        }
+
+        .category-card:hover .cat-icon-wrap {
+            transform: scale(1.12) rotate(-5deg);
+        }
+
+        .cat-card-bottom {
+            padding: 0 24px 22px;
+            margin-top: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .cat-count-badge {
+            font-family: var(--font-heading);
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: rgba(100, 80, 140, 0.7);
+        }
+
+        .cat-explore-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 9px 18px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.8);
+            border: 1.5px solid rgba(255, 255, 255, 0.95);
+            color: #6b58a8;
+            font-weight: 800;
+            font-size: 0.84rem;
+            text-decoration: none;
+            transition: all 0.22s ease;
+            box-shadow: 0 4px 12px rgba(200, 180, 230, 0.18);
+            white-space: nowrap;
+        }
+
+        .cat-explore-btn:hover {
+            background: rgba(255, 255, 255, 1);
+            color: #5b4c86;
+            box-shadow: 0 8px 22px rgba(200, 180, 230, 0.35);
+            transform: translateX(3px);
+        }
+
+        /* ── Why Ragini Cards ── */
+        .why-card {
+            position: relative;
+            padding: 32px 24px;
+            border-radius: var(--radius-lg);
+            text-align: center;
+            overflow: hidden;
+            z-index: 1;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+        }
+
+        .why-card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: var(--radius-lg);
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .why-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: transparent;
+        }
+
+        .why-card:hover::before {
+            opacity: 1;
+        }
+
+        .why-icon-box {
+            width: 72px;
+            height: 72px;
+            border-radius: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin-bottom: 8px;
+            background: #ffffff;
+            box-shadow: 0 12px 24px rgba(210, 190, 240, 0.25);
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .why-card:hover .why-icon-box {
+            transform: scale(1.15) rotate(8deg);
+        }
+
+        /* Unique card hover gradients */
+        .why-card.color-1:hover {
+            box-shadow: 0 20px 40px rgba(255, 180, 210, 0.3);
+        }
+
+        .why-card.color-1::before {
+            background: linear-gradient(135deg, #fff0f6, #ffe0ec);
+        }
+
+        .why-card.color-1 .why-icon-box {
+            color: #f285b0;
+        }
+
+        .why-card.color-2:hover {
+            box-shadow: 0 20px 40px rgba(180, 220, 255, 0.3);
+        }
+
+        .why-card.color-2::before {
+            background: linear-gradient(135deg, #f0f8ff, #d8eeff);
+        }
+
+        .why-card.color-2 .why-icon-box {
+            color: #5cb3f5;
+        }
+
+        .why-card.color-3:hover {
+            box-shadow: 0 20px 40px rgba(255, 230, 150, 0.3);
+        }
+
+        .why-card.color-3::before {
+            background: linear-gradient(135deg, #fffdf0, #ffebd0);
+        }
+
+        .why-card.color-3 .why-icon-box {
+            color: #f5b041;
+        }
+
+        .why-card.color-4:hover {
+            box-shadow: 0 20px 40px rgba(180, 240, 210, 0.3);
+        }
+
+        .why-card.color-4::before {
+            background: linear-gradient(135deg, #f0fff8, #d8f7e8);
+        }
+
+        .why-card.color-4 .why-icon-box {
+            color: #3ec492;
+        }
+
+        .cta-panel {
+            padding: 48px 36px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 32px;
+            background: linear-gradient(135deg, #a68deb, #e995c7);
+            box-shadow: 0 24px 48px rgba(180, 150, 230, 0.35);
+            text-align: left;
+            z-index: 1;
+        }
+
+        .cta-bg-shape1,
+        .cta-bg-shape2 {
+            position: absolute;
+            border-radius: 50%;
+            z-index: -1;
+            filter: blur(40px);
+            opacity: 0.6;
+        }
+
+        .cta-bg-shape1 {
+            width: 300px;
+            height: 300px;
+            background: #fff;
+            top: -100px;
+            right: -50px;
+            animation: float 8s ease-in-out infinite alternate;
+        }
+
+        .cta-bg-shape2 {
+            width: 250px;
+            height: 250px;
+            background: rgba(255, 230, 150, 0.8);
+            bottom: -80px;
+            left: -80px;
+            animation: float 10s ease-in-out infinite alternate-reverse;
+        }
+
+        .cta-title {
+            color: #ffffff;
+            font-family: var(--font-heading);
+            font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+            line-height: 1.15;
+            margin-bottom: 16px;
+            text-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .cta-text {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.05rem;
+            line-height: 1.7;
+            font-weight: 500;
+        }
+
+        .btn-cta-play {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 16px 32px;
+            background: #ffffff;
+            color: #a68deb;
+            border-radius: 99px;
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            font-weight: 800;
+            text-decoration: none;
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .btn-cta-play:hover {
+            transform: scale(1.08) translateY(-4px);
+            box-shadow: 0 16px 32px rgba(0, 0, 0, 0.25);
+            color: #d86fb0;
+        }
+
+        .site-footer {
+            padding: 60px 0 30px;
+            margin-top: 40px;
+        }
+
+        .footer-box {
+            padding: 40px;
+            background: #ffffff;
+            border-radius: 32px;
+            box-shadow: 0 16px 40px rgba(210, 195, 240, 0.25);
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            position: relative;
+        }
+
+        .footer-copy {
+            color: var(--muted);
+            line-height: 1.8;
+            max-width: 330px;
+            margin-top: 16px;
+            font-size: 0.95rem;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px 24px;
+            justify-content: center;
+        }
+
+        .footer-links a {
+            color: #8b80af;
+            font-weight: 800;
+            text-decoration: none;
+            transition: color 0.2s ease, transform 0.2s ease;
+            position: relative;
+        }
+
+        .footer-links a:hover {
+            color: #d86fb0;
+            transform: translateY(-2px);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: end;
+            gap: 12px;
+        }
+
+        .social-links a {
+            width: 48px;
+            height: 48px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 18px;
+            color: #a68deb;
+            background: linear-gradient(135deg, #ffffff, #f4eeff);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            box-shadow: 0 8px 16px rgba(200, 180, 230, 0.2);
+            font-size: 1.2rem;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .social-links a:hover {
+            transform: translateY(-6px) rotate(5deg);
+            background: #a68deb;
+            color: #ffffff;
+            box-shadow: 0 12px 24px rgba(166, 141, 235, 0.4);
+        }
+
+        .footer-note {
+            color: #a89bc5;
+            font-size: 0.95rem;
+            font-weight: 700;
+        }
+
+        @keyframes hop {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            20% {
+                transform: translateY(-10px);
+            }
+
+            40% {
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes bob {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @media (max-width: 991.98px) {
+            .site-navbar .nav-shell {
+                border-radius: 34px;
+                padding: 16px;
+            }
+
+            .site-navbar .nav-shell::before {
+                right: 26px;
+            }
+
+            .header-brand {
+                max-width: calc(100% - 76px);
+            }
+
+            .header-logo-shell {
+                width: min(240px, 100%);
+            }
+
+            .navbar-collapse {
+                flex-basis: 100%;
+                margin-top: 10px;
+                padding: 12px;
+                border-radius: 28px;
+                background: linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(246, 240, 255, 0.82));
+                border: 1px solid rgba(197, 185, 229, 0.24);
+                box-shadow:
+                    inset 0 2px 0 rgba(255, 255, 255, 0.96),
+                    0 14px 28px rgba(219, 206, 241, 0.22);
+            }
+
+            .nav-links-bubble {
+                padding: 2px 0;
+            }
+
+            .nav-links-bubble .nav-link {
+                width: 100%;
+            }
+
+            .nav-cta {
+                width: 100%;
+            }
+
+            .hero {
+                padding-top: 154px;
+            }
+
+            .hero-art {
+                margin-top: 16px;
+            }
+
+            .trend-card {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .social-links,
+            .footer-links {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 767.98px) {
+            section {
+                padding: 72px 0;
+            }
+
+            .hero-actions {
+                flex-direction: column;
+            }
+
+            .btn-soft {
+                width: 100%;
+            }
+
+            .play-panel {
+                min-height: 390px;
+                padding: 20px;
+            }
+
+            .toy-screen {
+                inset: 62px 42px 78px;
+            }
+
+            .card-bottom {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .footer-copy,
+            .section-intro {
+                max-width: 100%;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            *,
+            *::before,
+            *::after {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg fixed-top site-navbar" id="siteNavbar">
+        <div class="container">
+            <div class="nav-shell w-100">
+                <a class="navbar-brand p-0 m-0 header-brand" href="#ana-sayfa" aria-label="Ragini Games ana sayfa">
+                    <span class="header-logo-shell">
+                        <img src="assets/ragini_logo.png" alt="Ragini Games logosu" class="header-logo-img">
+                    </span>
+                </a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
+                    aria-controls="mainNav" aria-expanded="false" aria-label="Menüyü aç">
+                    <i class="bi bi-list fs-4"></i>
+                </button>
+
+                <div class="collapse navbar-collapse justify-content-lg-end" id="mainNav">
+                    <ul class="navbar-nav align-items-lg-center nav-links-bubble">
+                        <li class="nav-item"><a class="nav-link active" href="#ana-sayfa">Ana Sayfa</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#oyunlar">Oyunlar</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#populer">Popüler</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#kategoriler">Kategoriler</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#hakkinda">Hakkında</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#iletisim">İletişim</a></li>
+                    </ul>
+                    <a href="#oyunlar" class="btn-soft nav-cta mt-3 mt-lg-0">Hemen Oyna <i
+                            class="bi bi-play-fill"></i></a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Hero -->
+        <section class="hero" id="ana-sayfa">
+            <div class="container">
+                <div class="row align-items-center g-5">
+                    <div class="col-lg-6">
+                        <span class="hero-note"><i class="bi bi-stars"></i> Ragini Games – Dünyanın eğlenceye açılan
+                            kapısı</span>
+                        <h1 class="hero-title">
+                            <span class="bounce-word" aria-label="Ragini">
+                                <span style="--i:0">R</span>
+                                <span style="--i:1">A</span>
+                                <span style="--i:2">G</span>
+                                <span style="--i:3">I</span>
+                                <span style="--i:4">N</span>
+                                <span style="--i:5">I</span>
+                            </span>
+                            <span>Games</span>
+                        </h1>
+                        <p class="hero-subtitle">
+                            Yumuşak renkler, kolay menüler ve minik sürprizlerle dolu bir oyun alanı. Hızlıca bir oyun
+                            seç, gülümseten küçük maceralara hemen başla.
+                        </p>
+
+                        <div class="hero-actions">
+                            <a href="#oyunlar" class="btn-soft primary">Hemen Oyna <i class="bi bi-joystick"></i></a>
+                            <a href="#kategoriler" class="btn-soft secondary">Kategorileri Gör <i
+                                    class="bi bi-grid"></i></a>
+                        </div>
+
+                        <div class="hero-pills">
+                            <span class="hero-pill"><i class="bi bi-heart-fill"></i> Ücretsiz Erişim</span>
+                            <span class="hero-pill"><i class="bi bi-lightning-charge-fill"></i> Hızlı Deneyim</span>
+                            <span class="hero-pill"><i class="bi bi-heart-fill"></i> Aile Dostu</span>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="hero-art">
+                            <div class="play-panel soft-card">
+                                <div class="toy-stage">
+                                    <div class="toy-console float-soft">
+                                        <div class="toy-cloud"><i class="bi bi-cloud-fill"></i></div>
+                                        <div class="toy-star"><i class="bi bi-star-fill"></i></div>
+                                        <div class="toy-screen" id="heroToyScreen">
+                                            <img id="hero-todays-img" src="" alt=""
+                                                style="width:100%;height:100%;object-fit:cover;border-radius:17px;display:none;">
+                                            <i class="bi bi-controller" id="hero-todays-icon"></i>
+                                        </div>
+                                        <div class="toy-badge">
+                                            <i class="bi bi-joystick"
+                                                style="color:#a08dd4;font-size:1.1rem;flex-shrink:0;"></i>
+                                            <div>
+                                                Bugünün Oyunu
+                                                <small id="hero-todays-name">...</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Games -->
+        <section id="oyunlar" style="padding-top:5px;">
+            <div class="container">
+
+                <!-- Games Section Header -->
+                <div class="text-center mb-4" style="max-width:920px;margin-left:auto;margin-right:auto;">
+                    <span class="section-label" style="font-family:var(--font-heading);font-size:0.9rem;">
+                        <i class="bi bi-controller"></i> Oyun Koleksiyonu
+                    </span>
+                    <h2
+                        style="font-family:var(--font-heading);color:var(--heading);font-size:clamp(2.4rem,5.2vw,3.8rem);line-height:1.1;margin:12px 0 10px;letter-spacing:-0.02em;">
+                        <i class="bi bi-stars"
+                            style="color:#d6a8ff;font-size:0.7em;vertical-align:middle;margin-right:10px;"></i>Hadi bir
+                        oyun seç
+                        <span style="color:#8a78d6;text-shadow: 2px 2px 0px rgba(138, 120, 214, 0.1);">ve
+                            eğlen!</span><i class="bi bi-joystick"
+                            style="color:#f7aed0;font-size:0.75em;vertical-align:middle;margin-left:14px;"></i>
+                    </h2>
+                    <p
+                        style="font-family:var(--font-heading);color:var(--muted);font-size:1rem;line-height:1.7;font-weight:500;margin-bottom:0;">
+                        <i class="bi bi-heart-fill" style="color:#f7aed0;font-size:0.8em;"></i>
+                        Sana özel hazırlanmış oyunlar burada seni bekliyor.
+                        Kategoriye göre filtrele, beğendiğine tıkla ve hemen oynamaya başla!
+                    </p>
+                </div>
+
+                <!-- Category Filter -->
+                <div class="cat-filter-bar" id="catFilterBar" style="justify-content:center;">
+                    <button class="cat-filter-btn active" data-cat="all"><i class="bi bi-grid-3x3-gap-fill"></i>
+                        Tümü</button>
+                    <button class="cat-filter-btn" data-cat="Platform"><i class="bi bi-bounding-box"></i>
+                        Platform</button>
+                    <button class="cat-filter-btn" data-cat="Macera"><i class="bi bi-compass-fill"></i> Macera</button>
+                    <button class="cat-filter-btn" data-cat="Bulmaca"><i class="bi bi-puzzle-fill"></i> Bulmaca</button>
+                    <button class="cat-filter-btn" data-cat="Arcade"><i class="bi bi-lightning-charge-fill"></i>
+                        Arcade</button>
+                    <button class="cat-filter-btn" data-cat="Aksiyon"><i class="bi bi-rocket-takeoff-fill"></i>
+                        Aksiyon</button>
+                    <button class="cat-filter-btn" data-cat="Yarış"><i class="bi bi-speedometer2"></i> Yarış</button>
+                </div>
+
+                <!-- Games Grid -->
+                <div class="games-grid" id="gamesGrid">
+                    <!-- Cards dynamically rendered by JS -->
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Trending -->
+        <section id="populer">
+            <div class="container">
+
+                <!-- Header -->
+                <div class="text-center mb-5" style="max-width:920px;margin-left:auto;margin-right:auto;">
+                    <span class="section-label" style="font-family:var(--font-heading);font-size:0.9rem;">
+                        <i class="bi bi-fire"></i> Popüler Şimdi
+                    </span>
+                    <h2
+                        style="font-family:var(--font-heading);color:var(--heading);font-size:clamp(2.4rem,5.2vw,3.8rem);line-height:1.12;margin:12px 0 10px;letter-spacing:-0.02em;">
+                        <i class="bi bi-trophy-fill"
+                            style="color:#d6a8ff;font-size:0.72em;vertical-align:middle;margin-right:10px;"></i>Herkesin
+                        oynadığı
+                        <span style="color:#8a78d6;text-shadow: 2px 2px 0px rgba(138, 120, 214, 0.1);">favori
+                            oyunlar!</span>
+                    </h2>
+                    <p
+                        style="font-family:var(--font-heading);color:var(--muted);font-size:1rem;line-height:1.7;font-weight:500;margin-bottom:0;">
+                        <i class="bi bi-star-fill" style="color:#f5d06a;font-size:0.8em;"></i>
+                        En çok oynanan, en çok sevilen oyunlar burada sıralandı.
+                        Sen de katıl ve eğlenmeye başla!
+                    </p>
+                </div>
+
+                <!-- Trend Cards Grid -->
+                <div class="row g-4">
+
+                    <!-- #1 -->
+                    <div class="col-12 col-md-4">
+                        <article class="soft-card trend-card">
+                            <div class="trend-card-top" style="background:linear-gradient(135deg,#ffedf5,#eddeff);">
+                                <div class="trend-num" style="background:rgba(255,255,255,0.8);color:#c06fa0;">#01</div>
+                                <span class="pill"
+                                    style="background:rgba(255,255,255,0.72);border-color:transparent;font-size:0.8rem;padding:6px 12px;margin-bottom:10px;display:inline-flex;">
+                                    <i class="bi bi-fire" style="color:#f07060;"></i>&nbsp;En Çok Oynanan
+                                </span>
+                                <h3
+                                    style="font-family:var(--font-heading);font-size:1.3rem;margin:10px 0 6px;color:var(--heading);">
+                                    Bubble Hop</h3>
+                                <p style="color:var(--muted);font-size:0.92rem;line-height:1.65;margin:0;">Hızlı, kołay
+                                    ve neşeli oynanışıyla günün en sevilen &nbsp;oyunu!</p>
+                            </div>
+                            <div class="trend-card-bottom">
+                                <div class="trend-stats" style="margin-top:0;">
+                                    <span class="trend-chip"><i class="bi bi-people-fill"></i> 9.4K</span>
+                                    <span class="trend-chip"><i class="bi bi-star-fill" style="color:#f5c842;"></i>
+                                        4.9</span>
+                                    <span class="trend-chip"><i class="bi bi-lightning-charge-fill"
+                                            style="color:#a080e0;"></i> Hızlı</span>
+                                </div>
+                                <a href="#" class="trend-play-btn"><i class="bi bi-play-fill"></i> Oyna</a>
+                            </div>
+                        </article>
+                    </div>
+
+                    <!-- #2 -->
+                    <div class="col-12 col-md-4">
+                        <article class="soft-card trend-card">
+                            <div class="trend-card-top" style="background:linear-gradient(135deg,#d8f0ff,#e0ffef);">
+                                <div class="trend-num" style="background:rgba(255,255,255,0.8);color:#4a92c0;">#02</div>
+                                <span class="pill"
+                                    style="background:rgba(255,255,255,0.72);border-color:transparent;font-size:0.8rem;padding:6px 12px;margin-bottom:10px;display:inline-flex;">
+                                    <i class="bi bi-stars" style="color:#60b0f0;"></i>&nbsp;Yeni Gelen
+                                </span>
+                                <h3
+                                    style="font-family:var(--font-heading);font-size:1.3rem;margin:10px 0 6px;color:var(--heading);">
+                                    Cloud Match</h3>
+                                <p style="color:var(--muted);font-size:0.92rem;line-height:1.65;margin:0;">Rahatlatıcı
+                                    bulmaca yapısı ve pastel bulut kartlarıyla çocuklar tarafından sevilen oyun!</p>
+                            </div>
+                            <div class="trend-card-bottom">
+                                <div class="trend-stats" style="margin-top:0;">
+                                    <span class="trend-chip"><i class="bi bi-people-fill"></i> 6.8K</span>
+                                    <span class="trend-chip"><i class="bi bi-star-fill" style="color:#f5c842;"></i>
+                                        4.7</span>
+                                    <span class="trend-chip"><i class="bi bi-puzzle-fill" style="color:#60a0e0;"></i>
+                                        Bulmaca</span>
+                                </div>
+                                <a href="#" class="trend-play-btn"><i class="bi bi-play-fill"></i> Oyna</a>
+                            </div>
+                        </article>
+                    </div>
+
+                    <!-- #3 -->
+                    <div class="col-12 col-md-4">
+                        <article class="soft-card trend-card">
+                            <div class="trend-card-top" style="background:linear-gradient(135deg,#fff8d6,#ffe4f8);">
+                                <div class="trend-num" style="background:rgba(255,255,255,0.8);color:#c08040;">#03</div>
+                                <span class="pill"
+                                    style="background:rgba(255,255,255,0.72);border-color:transparent;font-size:0.8rem;padding:6px 12px;margin-bottom:10px;display:inline-flex;">
+                                    <i class="bi bi-heart-fill" style="color:#e06090;"></i>&nbsp;Aile Favorisi
+                                </span>
+                                <h3
+                                    style="font-family:var(--font-heading);font-size:1.3rem;margin:10px 0 6px;color:var(--heading);">
+                                    Rainbow Steps</h3>
+                                <p style="color:var(--muted);font-size:0.92rem;line-height:1.65;margin:0;">Basit
+                                    kontrolleri ve renkli görünümüyle birlikte oynamaya en uygun seçenek!</p>
+                            </div>
+                            <div class="trend-card-bottom">
+                                <div class="trend-stats" style="margin-top:0;">
+                                    <span class="trend-chip"><i class="bi bi-people-fill"></i> 7.2K</span>
+                                    <span class="trend-chip"><i class="bi bi-star-fill" style="color:#f5c842;"></i>
+                                        4.8</span>
+                                    <span class="trend-chip"><i class="bi bi-house-heart-fill"
+                                            style="color:#e080a0;"></i> Aile</span>
+                                </div>
+                                <a href="#" class="trend-play-btn"><i class="bi bi-play-fill"></i> Oyna</a>
+                            </div>
+                        </article>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Categories -->
+        <section id="kategoriler">
+            <div class="container">
+
+                <!-- Header -->
+                <div class="text-center mb-5" style="max-width:780px;margin-left:auto;margin-right:auto;">
+                    <span class="section-label" style="font-family:var(--font-heading);font-size:0.9rem;">
+                        <i class="bi bi-grid-fill"></i> Kategoriler
+                    </span>
+                    <h2
+                        style="font-family:var(--font-heading);color:var(--heading);font-size:clamp(2.2rem,4.5vw,3.4rem);line-height:1.12;margin:12px 0 10px;">
+                        <i class="bi bi-compass-fill"
+                            style="color:#90caf7;font-size:0.72em;vertical-align:middle;margin-right:10px;"></i>Moduna
+                        göre
+                        <span style="color:#8a78d6;text-shadow: 2px 2px 0px rgba(138, 120, 214, 0.1);">oyun
+                            seç!</span><i class="bi bi-stars"
+                            style="color:#d6a8ff;font-size:0.65em;vertical-align:middle;margin-left:14px;"></i>
+                    </h2>
+                    <p
+                        style="font-family:var(--font-heading);color:var(--muted);font-size:1rem;line-height:1.7;font-weight:500;margin-bottom:0;">
+                        <i class="bi bi-heart-fill" style="color:#f7aed0;font-size:0.8em;"></i>
+                        Platform, bulmaca, macera... her taştan bir renk var.
+                        Kategorini seç, hemen başla!
+                    </p>
+                </div>
+
+                <!-- Category Cards -->
+                <div class="row g-4">
+
+                    <div class="col-md-6 col-xl-4">
+                        <article class="soft-card category-card">
+                            <div class="cat-card-top" style="background:linear-gradient(135deg,#ffedf5,#eddeff);">
+                                <div class="cat-icon-wrap" style="color:#c06fa0;"><i
+                                        class="bi bi-lightning-charge-fill"></i></div>
+                                <div>
+                                    <h3
+                                        style="font-family:var(--font-heading);font-size:1.25rem;margin:0 0 6px;color:var(--heading);">
+                                        Arcade</h3>
+                                    <p style="color:var(--muted);font-size:0.9rem;line-height:1.6;margin:0;">Hızlı
+                                        başlayan, kısa sürede keyif veren oyunlar.</p>
+                                </div>
+                            </div>
+                            <div class="cat-card-bottom">
+                                <span class="cat-count-badge"><i class="bi bi-joystick"></i> Oyunları keşfet</span>
+                                <a href="#oyunlar" class="cat-explore-btn">Keşfet <i class="bi bi-arrow-right"></i></a>
+                            </div>
+                        </article>
+                    </div>
+
+                    <div class="col-md-6 col-xl-4">
+                        <article class="soft-card category-card">
+                            <div class="cat-card-top" style="background:linear-gradient(135deg,#e8e0ff,#d8f0ff);">
+                                <div class="cat-icon-wrap" style="color:#7860c8;"><i class="bi bi-puzzle-fill"></i>
+                                </div>
+                                <div>
+                                    <h3
+                                        style="font-family:var(--font-heading);font-size:1.25rem;margin:0 0 6px;color:var(--heading);">
+                                        Bulmaca</h3>
+                                    <p style="color:var(--muted);font-size:0.9rem;line-height:1.6;margin:0;">Renkleri
+                                        eşleştir, parçaları tamamla, sakin bir tempoda ilerle.</p>
+                                </div>
+                            </div>
+                            <div class="cat-card-bottom">
+                                <span class="cat-count-badge"><i class="bi bi-joystick"></i> Oyunları keşfet</span>
+                                <a href="#oyunlar" class="cat-explore-btn">Keşfet <i class="bi bi-arrow-right"></i></a>
+                            </div>
+                        </article>
+                    </div>
+
+                    <div class="col-md-6 col-xl-4">
+                        <article class="soft-card category-card">
+                            <div class="cat-card-top" style="background:linear-gradient(135deg,#d8f4ff,#d8ffee);">
+                                <div class="cat-icon-wrap" style="color:#3a9fc0;"><i class="bi bi-speedometer2"></i>
+                                </div>
+                                <div>
+                                    <h3
+                                        style="font-family:var(--font-heading);font-size:1.25rem;margin:0 0 6px;color:var(--heading);">
+                                        Yarış</h3>
+                                    <p style="color:var(--muted);font-size:0.9rem;line-height:1.6;margin:0;">Sevimli
+                                        araçlarla güvenli ve eğlenceli yarışlar.</p>
+                                </div>
+                            </div>
+                            <div class="cat-card-bottom">
+                                <span class="cat-count-badge"><i class="bi bi-joystick"></i> Oyunları keşfet</span>
+                                <a href="#oyunlar" class="cat-explore-btn">Keşfet <i class="bi bi-arrow-right"></i></a>
+                            </div>
+                        </article>
+                    </div>
+
+                    <div class="col-md-6 col-xl-4">
+                        <article class="soft-card category-card">
+                            <div class="cat-card-top" style="background:linear-gradient(135deg,#d8ffed,#d8f8ff);">
+                                <div class="cat-icon-wrap" style="color:#2a9e72;"><i class="bi bi-compass-fill"></i>
+                                </div>
+                                <div>
+                                    <h3
+                                        style="font-family:var(--font-heading);font-size:1.25rem;margin:0 0 6px;color:var(--heading);">
+                                        Macera</h3>
+                                    <p style="color:var(--muted);font-size:0.9rem;line-height:1.6;margin:0;">Yeni yollar
+                                        keşfet, küçük görevleri tamamla.</p>
+                                </div>
+                            </div>
+                            <div class="cat-card-bottom">
+                                <span class="cat-count-badge"><i class="bi bi-joystick"></i> Oyunları keşfet</span>
+                                <a href="#oyunlar" class="cat-explore-btn">Keşfet <i class="bi bi-arrow-right"></i></a>
+                            </div>
+                        </article>
+                    </div>
+
+                    <div class="col-md-6 col-xl-4">
+                        <article class="soft-card category-card">
+                            <div class="cat-card-top" style="background:linear-gradient(135deg,#ffd8e0,#ffe8cc);">
+                                <div class="cat-icon-wrap" style="color:#c05050;"><i
+                                        class="bi bi-rocket-takeoff-fill"></i></div>
+                                <div>
+                                    <h3
+                                        style="font-family:var(--font-heading);font-size:1.25rem;margin:0 0 6px;color:var(--heading);">
+                                        Aksiyon</h3>
+                                    <p style="color:var(--muted);font-size:0.9rem;line-height:1.6;margin:0;">Hızlı ama
+                                        korkutmayan, renkli görevlerle dolu oyunlar.</p>
+                                </div>
+                            </div>
+                            <div class="cat-card-bottom">
+                                <span class="cat-count-badge"><i class="bi bi-joystick"></i> Oyunları keşfet</span>
+                                <a href="#oyunlar" class="cat-explore-btn">Keşfet <i class="bi bi-arrow-right"></i></a>
+                            </div>
+                        </article>
+                    </div>
+
+                    <div class="col-md-6 col-xl-4">
+                        <article class="soft-card category-card">
+                            <div class="cat-card-top" style="background:linear-gradient(135deg,#fff8d0,#ffecd8);">
+                                <div class="cat-icon-wrap" style="color:#b07830;"><i class="bi bi-bounding-box"></i>
+                                </div>
+                                <div>
+                                    <h3
+                                        style="font-family:var(--font-heading);font-size:1.25rem;margin:0 0 6px;color:var(--heading);">
+                                        Platform</h3>
+                                    <p style="color:var(--muted);font-size:0.9rem;line-height:1.6;margin:0;">Zıpla,
+                                        ilerle ve denge kurmayı öğrenirken eğlen.</p>
+                                </div>
+                            </div>
+                            <div class="cat-card-bottom">
+                                <span class="cat-count-badge"><i class="bi bi-joystick"></i> Oyunları keşfet</span>
+                                <a href="#oyunlar" class="cat-explore-btn">Keşfet <i class="bi bi-arrow-right"></i></a>
+                            </div>
+                        </article>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Why Ragini -->
+        <section id="hakkinda">
+            <div class="container">
+
+                <!-- Header -->
+                <div class="text-center mb-5" style="max-width:840px;margin-left:auto;margin-right:auto;">
+                    <h2
+                        style="font-family:var(--font-heading);color:var(--heading);font-size:clamp(2.4rem,5.2vw,3.8rem);line-height:1.12;margin:12px 0 10px;letter-spacing:-0.02em;">
+                        Neden <span style="color:#8a78d6;text-shadow: 2px 2px 0px rgba(138, 120, 214, 0.1);">Ragini
+                            Games?</span>
+                        <i class="bi bi-stars"
+                            style="color:#f5d06a;font-size:0.7em;vertical-align:middle;margin-left:8px;"></i>
+                    </h2>
+                    <p
+                        style="font-family:var(--font-heading);color:var(--muted);font-size:1rem;line-height:1.7;font-weight:500;margin-bottom:0;">
+                        Çocukların güvenle, eğlenerek oynayabileceği; ailelerin ise içi rahat bir şekilde oyun
+                        seçebileceği renkli, güvenilir ve dopdolu bir platformuz!
+                    </p>
+                </div>
+
+                <div class="row g-4">
+                    <div class="col-md-6 col-xl-3">
+                        <article class="soft-card why-card color-1">
+                            <div class="why-icon-box">
+                                <i class="bi bi-shield-check"></i>
+                            </div>
+                            <h3 style="font-family:var(--font-heading);font-size:1.3rem;margin:0;color:var(--heading);">
+                                Güvenli Alan</h3>
+                            <p style="color:var(--muted);font-size:0.92rem;line-height:1.6;margin:0;">
+                                Reklamsız, şiddet içermeyen ve çocukların yaşına uygun olarak seçilmiş tamamen güvenli
+                                oyunlar.
+                            </p>
+                        </article>
+                    </div>
+                    <div class="col-md-6 col-xl-3">
+                        <article class="soft-card why-card color-2">
+                            <div class="why-icon-box">
+                                <i class="bi bi-emoji-laughing"></i>
+                            </div>
+                            <h3 style="font-family:var(--font-heading);font-size:1.3rem;margin:0;color:var(--heading);">
+                                Eğlenceli & Neşeli</h3>
+                            <p style="color:var(--muted);font-size:0.92rem;line-height:1.6;margin:0;">
+                                Pastel renkler, sevimli karakterler ve hareketli dünyalar ile sıkılmadan vakit
+                                geçirmenin adresi.
+                            </p>
+                        </article>
+                    </div>
+                    <div class="col-md-6 col-xl-3">
+                        <article class="soft-card why-card color-3">
+                            <div class="why-icon-box">
+                                <i class="bi bi-cursor"></i>
+                            </div>
+                            <h3 style="font-family:var(--font-heading);font-size:1.3rem;margin:0;color:var(--heading);">
+                                Kolay Kullanım</h3>
+                            <p style="color:var(--muted);font-size:0.92rem;line-height:1.6;margin:0;">
+                                Karmaşık menüler yok! Çocukların bile rahatça gezinebileceği kadar basit ve okunaklı
+                                tasarım.
+                            </p>
+                        </article>
+                    </div>
+                    <div class="col-md-6 col-xl-3">
+                        <article class="soft-card why-card color-4">
+                            <div class="why-icon-box">
+                                <i class="bi bi-phone"></i>
+                            </div>
+                            <h3 style="font-family:var(--font-heading);font-size:1.3rem;margin:0;color:var(--heading);">
+                                Her Yerde Oyna</h3>
+                            <p style="color:var(--muted);font-size:0.92rem;line-height:1.6;margin:0;">
+                                Tablette, telefonda veya bilgisayarda... Ekstra hiçbir kuruluma gerek duymadan anında
+                                eğlence.
+                            </p>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- CTA -->
+        <section id="iletisim" style="padding-top:20px;">
+            <div class="container">
+                <div class="cta-panel">
+                    <div class="cta-bg-shape1"></div>
+                    <div class="cta-bg-shape2"></div>
+                    <div class="row align-items-center g-4 cta-content">
+                        <div class="col-lg-7 text-center text-lg-start">
+                            <span class="pill"
+                                style="background:rgba(255,255,255,0.25);color:#fff;border-color:transparent;margin-bottom:16px;box-shadow:0 4px 12px rgba(0,0,0,0.05);">
+                                <i class="bi bi-stars" style="color:#5cf2f2;"></i> Oyun Zamanı
+                            </span>
+                            <h2 class="cta-title" style="font-size:clamp(1.8rem, 3vw, 2.6rem); font-weight:800; margin-bottom:16px;">
+                                Hazırsan RaGiNi dünyasına<br>
+                                <span style="color:#5cf2f2; text-shadow:0 2px 8px rgba(92,242,242,0.4);">hemen giriş yap!</span>
+                            </h2>
+                            <p class="cta-text mx-auto mx-lg-0 mb-0" style="font-size:1.15rem; font-family:var(--font-heading); color:rgba(255,255,255,0.95); max-width:560px; line-height:1.65; font-weight:500;">
+                                Harika pastel renkler, eğlenceli görevler ve hiç sıkılmayacağın onlarca mini oyun seni
+                                bekliyor. Hemen tıkla, oynamaya başla!
+                            </p>
+                        </div>
+                        <div class="col-lg-5 text-center text-lg-end">
+                            <a href="#oyunlar" class="btn-cta-play">
+                                <i class="bi bi-play-circle-fill" style="font-size:1.4rem;"></i> Hemen Oyna
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-box">
+                <div class="row g-5 align-items-center justify-content-center mx-auto">
+
+                    <!-- Centered Content -->
+                    <div class="col-12 col-lg-10 col-xl-8 d-flex flex-column align-items-center text-center">
+                        <!-- Logo -->
+                        <a class="navbar-brand p-0 m-0 header-brand" href="#ana-sayfa" aria-label="Ragini Games ana sayfa" style="margin-bottom: 24px; display:inline-flex; justify-content:center;">
+                            <span class="header-logo-shell" style="width: clamp(210px, 18vw, 250px); box-shadow: 0 16px 32px rgba(217, 203, 242, 0.4), inset 0 2px 0 rgba(255, 255, 255, 0.96);">
+                                <img src="assets/ragini_logo.png" alt="Ragini Games logosu" class="header-logo-img" style="height: 64px;">
+                            </span>
+                        </a>
+
+                        <!-- Heading & Text -->
+                        <h4 style="font-family:var(--font-heading); color:#a68deb; font-size:1.6rem; font-weight:800; margin-bottom:14px; text-shadow: 1px 1px 0px rgba(166, 141, 235, 0.1);">
+                            Yeni Nesil Çocuk Oyun Kulübü! <i class="bi bi-stars" style="color:#ffdb58;"></i>
+                        </h4>
+                        
+                        <p class="mx-auto" style="max-width: 580px; margin-bottom: 36px; font-family:var(--font-heading); font-size:1.15rem; line-height:1.65; color:#786e9e; font-weight:500;">
+                            Pastel renklerin büyüsü, hiç bitmeyen eğlence... Çocukların güvenle oynayabileceği, sevimli mi sevimli bir deneyim sunuyoruz! Eğlenceye sen de katıl.
+                        </p>
+
+                        <!-- Links evenly distributed -->
+                        <nav class="footer-links w-100 d-flex justify-content-center flex-wrap" aria-label="Alt menü" style="gap:20px;">
+                            <a href="#hero" style="display:flex; align-items:center; gap:8px; padding: 12px 26px; background:rgba(245, 240, 255, 0.8); border-radius:99px; border: 1px solid rgba(255,255,255,0.9); box-shadow:0 6px 12px rgba(216,111,176,0.08); transition:transform 0.2s;"><i class="bi bi-house-door-fill" style="color:#d86fb0; font-size:1.1rem;"></i> Ana Sayfa</a>
+                            <a href="#oyunlar" style="display:flex; align-items:center; gap:8px; padding: 12px 26px; background:rgba(245, 240, 255, 0.8); border-radius:99px; border: 1px solid rgba(255,255,255,0.9); box-shadow:0 6px 12px rgba(92,179,245,0.08); transition:transform 0.2s;"><i class="bi bi-joystick" style="color:#5cb3f5; font-size:1.1rem;"></i> Oyunlar</a>
+                            <a href="#populer" style="display:flex; align-items:center; gap:8px; padding: 12px 26px; background:rgba(245, 240, 255, 0.8); border-radius:99px; border: 1px solid rgba(255,255,255,0.9); box-shadow:0 6px 12px rgba(245,176,65,0.08); transition:transform 0.2s;"><i class="bi bi-fire" style="color:#f5b041; font-size:1.1rem;"></i> Popüler</a>
+                            <a href="#kategoriler" style="display:flex; align-items:center; gap:8px; padding: 12px 26px; background:rgba(245, 240, 255, 0.8); border-radius:99px; border: 1px solid rgba(255,255,255,0.9); box-shadow:0 6px 12px rgba(166,141,235,0.08); transition:transform 0.2s;"><i class="bi bi-grid-fill" style="color:#a68deb; font-size:1.1rem;"></i> Kategoriler</a>
+                        </nav>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Bottom Note -->
+            <div class="d-flex flex-column flex-md-row align-items-center justify-content-between gap-3 mt-4 px-2"
+                style="border-top:1px dashed rgba(180, 150, 230, 0.2); padding-top:20px;">
+                <span class="footer-note"><i class="bi bi-c-circle"></i> 2026 Ragini Games | Tüm Hakları
+                    Saklıdır.</span>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <script>
+        /* ============================================================
+           GAME DATABASE
+           Yeni oyun eklemek için buraya obje ekle:
+           {
+             id: 'benzersiz-id',
+             title: 'Oyun Adı',
+             description: 'Kısa açıklama.',
+             category: 'Platform', // Platform | Macera | Bulmaca | Arcade | Aksiyon | Yarış
+             categoryIcon: 'bi-bounding-box', // Bootstrap Icons sınıfı
+             image: 'assets/oyun_logo.png', // assets/ klasöründe, yoksa null
+             path: 'Mario/index.html', // Oyunun index.html yolu
+             isNew: true, // Yeni çıktı rozeti göster
+             thumbClass: 'thumb-1', // Görsel yoksa kullanılacak arka plan (thumb-1..6)
+             thumbIcon: 'bi-bounding-box', // Görsel yoksa büyük ikon
+             rating: '4.9',
+             playCount: '8.2K'
+           }
+        ============================================================ */
+        const GAMES = [
+            {
+                id: 'zippys-adventure',
+                title: "Zippy's Adventure",
+                description: "Renkli bir platformda Zippy ile maceraya atıl! Engelleri aş, yıldızları topla ve her bölümü tamamla.",
+                category: 'Platform',
+                categoryIcon: 'bi-bounding-box',
+                image: 'assets/zippys_adventure_logo.png',
+                path: 'Mario/index.html',
+                isNew: true,
+                thumbClass: 'thumb-1',
+                thumbIcon: 'bi-person-running',
+                rating: '4.9',
+                playCount: '8.2K'
+            }
+            /* ── Sonraki oyunları buraya ekle ── */
+        ];
+
+        /* ── Category color map ── */
+        const CAT_COLORS = {
+            'Platform': { bg: 'linear-gradient(135deg,#fff0b5,#d8ddff)', text: '#6b60a2' },
+            'Macera': { bg: 'linear-gradient(135deg,#c8f3dd,#d8f0ff)', text: '#3a8f6e' },
+            'Bulmaca': { bg: 'linear-gradient(135deg,#cfe8ff,#d7d0ff)', text: '#4a72b8' },
+            'Arcade': { bg: 'linear-gradient(135deg,#ffd8e8,#d6ccff)', text: '#9262b8' },
+            'Aksiyon': { bg: 'linear-gradient(135deg,#ffd7c6,#ffd8ef)', text: '#b86262' },
+            'Yarış': { bg: 'linear-gradient(135deg,#ffe0c9,#fff1b7)', text: '#b87c33' }
+        };
+
+        /* ── Render game card ── */
+        function renderCard(game) {
+            const col = document.createElement('div');
+            col.className = 'game-card-col';
+            col.dataset.cat = game.category;
+
+            const cat = CAT_COLORS[game.category] || { bg: 'linear-gradient(135deg,#ffd8e8,#d6ccff)', text: '#7b7099' };
+
+            const thumbHTML = game.image
+                ? `<img src="${game.image}" alt="${game.title}" loading="lazy">`
+                : `<div class="game-thumb-placeholder"><i class="bi ${game.thumbIcon}"></i></div>`;
+
+            const newBadge = game.isNew ? '<span class="game-badge-new">✨ Yeni</span>' : '';
+
+            col.innerHTML = `
+                <article class="soft-card game-card">
+                    <div class="game-thumb ${game.image ? '' : game.thumbClass}">
+                        ${newBadge}
+                        ${thumbHTML}
+                    </div>
+                    <div class="meta-row">
+                        <span class="pill" style="background:${cat.bg};color:${cat.text};border:none">
+                            <i class="bi ${game.categoryIcon}"></i> ${game.category}
+                        </span>
+                        <span class="score">⭐ ${game.rating}</span>
+                    </div>
+                    <h3 style="font-family:var(--font-heading);color:var(--heading);font-size:1.28rem;margin-bottom:8px">${game.title}</h3>
+                    <p style="color:var(--muted);line-height:1.75;margin-bottom:16px;flex:1">${game.description}</p>
+                    <div class="card-bottom">
+                        <span class="tiny-note"><i class="bi bi-people-fill"></i> ${game.playCount} oyuncu</span>
+                        <a href="${game.path}" target="_blank" rel="noopener" class="btn-play">
+                            <i class="bi bi-play-circle-fill"></i> Oyna
+                        </a>
+                    </div>
+                </article>`;
+            return col;
+        }
+
+        /* ── Render all games ── */
+        function renderGames(filterCat) {
+            const grid = document.getElementById('gamesGrid');
+            grid.innerHTML = '';
+            const list = filterCat === 'all' ? GAMES : GAMES.filter(g => g.category === filterCat);
+
+            if (list.length === 0) {
+                grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:48px;color:var(--muted);font-weight:700"><i class="bi bi-controller" style="font-size:2.5rem;display:block;margin-bottom:12px"></i>Bu kategoride henüz oyun yok, yakında ekleniyor!</div>';
+                return;
+            }
+            list.forEach(g => grid.appendChild(renderCard(g)));
+        }
+
+        /* ── Category filter buttons ── */
+        document.getElementById('catFilterBar').addEventListener('click', e => {
+            const btn = e.target.closest('.cat-filter-btn');
+            if (!btn) return;
+            document.querySelectorAll('.cat-filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            renderGames(btn.dataset.cat);
+        });
+
+        /* ── Today's Game: hero console (seeded by date) ── */
+        function todaysGame() {
+            if (!GAMES.length) return;
+            const today = new Date();
+            const seed = today.getFullYear() * 10000 + (today.getMonth() + 1) * 100 + today.getDate();
+            const idx = seed % GAMES.length;
+            const game = GAMES[idx];
+
+            /* Hero badge name */
+            const heroName = document.getElementById('hero-todays-name');
+            if (heroName) heroName.textContent = game.title;
+
+            /* Hero console screen image */
+            const heroImg = document.getElementById('hero-todays-img');
+            const heroIcon = document.getElementById('hero-todays-icon');
+            if (game.image && heroImg) {
+                heroImg.src = game.image;
+                heroImg.alt = game.title;
+                heroImg.style.display = 'block';
+                if (heroIcon) heroIcon.style.display = 'none';
+            }
+        }
+
+        /* ── Init ── */
+        renderGames('all');
+        todaysGame();
+
+        /* ── Navbar ── */
+        const navbar = document.getElementById("siteNavbar");
+        const collapseElement = document.getElementById("mainNav");
+        const navLinks = document.querySelectorAll("#mainNav .nav-link");
+        const navCollapse = collapseElement ? new bootstrap.Collapse(collapseElement, { toggle: false }) : null;
+
+        const setNavbarState = () => {
+            navbar.classList.toggle("scrolled", window.scrollY > 16);
+        };
+
+        setNavbarState();
+        window.addEventListener("scroll", setNavbarState, { passive: true });
+
+        navLinks.forEach((link) => {
+            link.addEventListener("click", () => {
+                navLinks.forEach((item) => item.classList.remove("active"));
+                link.classList.add("active");
+                if (window.innerWidth < 992 && navCollapse) navCollapse.hide();
+            });
+        });
+    </script>
+</body>
+
+</html>
