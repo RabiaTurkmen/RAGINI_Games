@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Slicing Master - Fruit Ninja Clone</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="game-container">
+        <canvas id="game-canvas"></canvas>
+        
+        <div id="ui-layer">
+            <div class="top-bar">
+                <div class="score-container">
+                    <span class="label">SCORE</span>
+                    <span id="score-value">000</span>
+                </div>
+                
+                <div id="timer-container" class="hidden">
+                    <span class="label">TIME</span>
+                    <span id="timer-value">60</span>
+                </div>
+
+                <div id="active-powerup" class="hidden">
+                    <span id="powerup-text">DOUBLE SCORE</span>
+                </div>
+
+                <div class="lives-container" id="lives">
+                    <div class="strike" data-index="0">X</div>
+                    <div class="strike" data-index="1">X</div>
+                    <div class="strike" data-index="2">X</div>
+                </div>
+            </div>
+
+            <div id="combo-display" class="hidden">
+                <span class="combo-text">COMBO!</span>
+                <span id="combo-count">x3</span>
+            </div>
+
+            <div id="start-screen" class="overlay">
+                <div class="game-card">
+                    <div class="card-header">
+                        <div class="high-score-tag">BEST SCORE: <span id="best-score">0</span></div>
+                    </div>
+                    <div class="card-body">
+                        <h1 class="logo-text"><span class="logo-top">SLICING</span><br><span class="logo-bottom">MASTER</span></h1>
+                        <p class="tagline">⚔️ The Ultimate Ninja Experience ⚔️</p>
+                    </div>
+                    
+                    <div class="mode-selection">
+                        <div class="mode-card active" data-mode="CLASSIC">
+                            <span class="mode-name">CLASSIC</span>
+                            <span class="mode-desc">3 Lives • Bombs Dead</span>
+                        </div>
+                        <div class="mode-card" data-mode="ZEN">
+                            <span class="mode-name">ZEN</span>
+                            <span class="mode-desc">90s • No Bombs</span>
+                        </div>
+                        <div class="mode-card" data-mode="ARCADE">
+                            <span class="mode-name">ARCADE</span>
+                            <span class="mode-desc">60s • Powerups</span>
+                        </div>
+                        <div class="mode-card" data-mode="SURVIVAL">
+                            <span class="mode-name">SURVIVAL</span>
+                            <span class="mode-desc">1 Life • Extreme</span>
+                        </div>
+                        <div class="mode-card" data-mode="TRAINING">
+                            <span class="mode-name">TRAINING</span>
+                            <span class="mode-desc">Relax • Infinite</span>
+                        </div>
+                    </div>
+
+                    <div class="card-footer">
+                        <button id="start-button" class="btn-primary">START MISSION</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="game-over-screen" class="overlay hidden">
+                <div class="game-card game-over-card">
+                    <h2 class="result-title">MISSION OVER</h2>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <span class="stat-label">MODE</span>
+                            <span id="final-mode" class="stat-value" style="font-size: 24px; color: var(--accent);">CLASSIC</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">FINAL SCORE</span>
+                            <span id="final-score" class="stat-value">0</span>
+                        </div>
+                    </div>
+                    <button id="restart-button" class="btn-primary">BACK TO MENU</button>
+                </div>
+            </div>
+            
+            <div id="powerup-flash" class="hidden"></div>
+            <div id="bomb-flash" class="hidden"></div>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
