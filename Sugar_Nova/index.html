@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Sugar Nova</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@600;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- ANA MENÜ / BÖLÜM SEÇİMİ -->
+    <div id="homeScreen" class="home-screen">
+        <div class="home-top-bar">
+            <div class="lives-container" id="livesContainer">
+                <span class="lives-icon">❤️</span>
+                <span id="livesCount" class="lives-text">5</span>
+                <span id="livesTimer" class="lives-timer">Dolu</span>
+            </div>
+            <div class="coin-container" id="goldContainer"
+                style="display:flex;align-items:center;gap:5px;background:rgba(0,0,0,0.5);border-radius:20px;padding:5px 10px;">
+                <span style="font-size:1.2rem">💰</span>
+                <span style="color:#ffde59;font-weight:bold;font-family:'Fredoka One',cursive;">50</span>
+            </div>
+        </div>
+        <h1 class="game-logo">🍬 Sugar Nova 🍭</h1>
+        <div class="level-map">
+            <h2>Bölümler</h2>
+            <div id="levelGrid" class="level-grid">
+                <!-- Seviye butonları JS ile oluşturulacak -->
+            </div>
+        </div>
+        <div class="home-actions">
+            <button id="resetProgressBtn" class="pill-btn small-btn outline">İlerlemeyi Sıfırla</button>
+        </div>
+    </div>
+
+    <!-- OYUN İÇİ EKRAN -->
+    <div id="gameContainer" class="game-container hidden">
+        <!-- Skor ve Durum Paneli -->
+        <header class="top-panel">
+            <div class="header-left">
+                <button id="backToMenuBtn" class="icon-button" title="Menüye Dön">⬅️</button>
+                <div class="level-info">
+                    <h1 id="levelTitle" class="level-title">Bölüm 1</h1>
+                    <div class="target-container">
+                        <span id="targetDesc">Hedef Puan:</span>
+                        <span id="targetValue" class="target-val">2000</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="header-center">
+                <div class="star-bar-container">
+                    <div class="star-bar-bg"></div>
+                    <div id="starBarFill" class="star-bar-fill"></div>
+                    <div class="star-markers">
+                        <span id="star1" class="star-marker">⭐</span>
+                        <span id="star2" class="star-marker">⭐</span>
+                        <span id="star3" class="star-marker">⭐</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="header-right">
+                <div class="stat-box">
+                    <span class="stat-label">SKOR</span>
+                    <span class="stat-value" id="score">0</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-label">HAMLE</span>
+                    <span class="stat-value" id="moves">20</span>
+                </div>
+                <button id="soundToggle" class="icon-button" title="Sesi Aç/Kapat">🔊</button>
+            </div>
+        </header>
+
+        <!-- Oyun Tahtası -->
+        <main class="board-container">
+            <div id="board" class="board"></div>
+
+            <!-- Shuffling Overlay -->
+            <div id="shuffleOverlay" class="board-overlay hidden">
+                <div class="shuffle-text">KARIŞTIRILIYOR...</div>
+            </div>
+        </main>
+
+        <!-- Booster Paneli -->
+        <footer class="booster-panel">
+            <button id="hammerBtn" class="booster-btn" title="Lolipop Çekici (Tek hamle harcamadan 1 şeker kırar)">
+                <span class="booster-icon">🔨</span>
+                <span id="hammerCount" class="booster-count">3</span>
+            </button>
+            <button id="switchBtn" class="booster-btn" title="El Jokeri (İki şekeri hamle harcamadan yer değiştirir)">
+                <span class="booster-icon">✋</span>
+                <span id="switchCount" class="booster-count">1</span>
+            </button>
+            <button id="stripedBtn" class="booster-btn"
+                title="Çizgili Joker (Seçili şekeri ufo gibi Satır+Sütun siliciye dönüştürür)">
+                <span class="booster-icon">✨</span>
+                <span id="stripedCount" class="booster-count">1</span>
+            </button>
+            <button id="bombBtn" class="booster-btn" title="Bomba Jokeri (Seçili alanı patlatır)">
+                <span class="booster-icon">💣</span>
+                <span id="bombCount" class="booster-count">1</span>
+            </button>
+        </footer>
+
+        <!-- Oyun Sonu Modal -->
+        <div id="gameOverModal" class="modal hidden">
+            <div class="modal-content">
+                <h2 id="modalTitle">Oyun Bitti!</h2>
+                <div class="modal-stars" id="modalStars">
+                    <span class="star-empty">☆</span>
+                    <span class="star-empty">☆</span>
+                    <span class="star-empty">☆</span>
+                </div>
+                <p id="modalMessage">Skorunuz: 0</p>
+                <div class="modal-buttons">
+                    <button id="menuFromModalBtn" class="pill-btn outline">Menü</button>
+                    <button id="restartBtn" class="pill-btn">Yeniden Oyna</button>
+                    <button id="nextLevelBtn" class="pill-btn hidden">Sonraki Bölüm!</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Episode Award Modal -->
+        <div id="episodeRewardModal" class="modal hidden" style="z-index: 2000;">
+            <div class="modal-content"
+                style="background: linear-gradient(135deg, #FFE000, #799F0C); border: 4px solid white;">
+                <h2>Kıta Tamamlandı!</h2>
+                <div style="font-size: 5rem; text-shadow: 0 0 20px #fff; animation: pulse 1s infinite;">🎁</div>
+                <p style="color: #fff; text-shadow: 0 2px 4px rgba(0,0,0,0.5);">Tebrikler! Bölüm grubunu başarıyla
+                    bitirdiniz.</p>
+                <h3 id="rewardText" style="color: #fff; margin-bottom: 20px;">+3 Rastgele Premium Joker Kazandınız!</h3>
+                <div class="modal-buttons">
+                    <button id="claimRewardBtn" class="pill-btn">Harikaymış, Alayım!</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- UI Ses Uyarisi -->
+    <div id="soundBanner" class="toast">Ekranın herhangi bir yerine dokunarak sesi aktifleştirebilirsiniz.</div>
+
+    <script src="levels.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
