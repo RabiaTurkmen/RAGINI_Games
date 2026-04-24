@@ -1,25 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Slicing Master - Fruit Ninja Clone</title>
+    <title>Zenith Slice</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&display=swap" rel="stylesheet">
 </head>
+
 <body>
     <div id="game-container">
         <canvas id="game-canvas"></canvas>
-        
+
         <div id="ui-layer">
             <div class="top-bar">
                 <div class="score-container">
                     <span class="label">SCORE</span>
                     <span id="score-value">000</span>
                 </div>
-                
+
                 <div id="timer-container" class="hidden">
                     <span class="label">TIME</span>
                     <span id="timer-value">60</span>
@@ -47,10 +49,11 @@
                         <div class="high-score-tag">BEST SCORE: <span id="best-score">0</span></div>
                     </div>
                     <div class="card-body">
-                        <h1 class="logo-text"><span class="logo-top">SLICING</span><br><span class="logo-bottom">MASTER</span></h1>
+                        <h1 class="logo-text"><span class="logo-top">SLICING</span><br><span
+                                class="logo-bottom">MASTER</span></h1>
                         <p class="tagline">⚔️ The Ultimate Ninja Experience ⚔️</p>
                     </div>
-                    
+
                     <div class="mode-selection">
                         <div class="mode-card active" data-mode="CLASSIC">
                             <span class="mode-name">CLASSIC</span>
@@ -86,7 +89,8 @@
                     <div class="stats-grid">
                         <div class="stat-item">
                             <span class="stat-label">MODE</span>
-                            <span id="final-mode" class="stat-value" style="font-size: 24px; color: var(--accent);">CLASSIC</span>
+                            <span id="final-mode" class="stat-value"
+                                style="font-size: 24px; color: var(--accent);">CLASSIC</span>
                         </div>
                         <div class="stat-item">
                             <span class="stat-label">FINAL SCORE</span>
@@ -96,7 +100,7 @@
                     <button id="restart-button" class="btn-primary">BACK TO MENU</button>
                 </div>
             </div>
-            
+
             <div id="powerup-flash" class="hidden"></div>
             <div id="bomb-flash" class="hidden"></div>
         </div>
@@ -104,4 +108,5 @@
 
     <script src="game.js"></script>
 </body>
+
 </html>
