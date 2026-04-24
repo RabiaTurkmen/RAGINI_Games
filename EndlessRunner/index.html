@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Sonsuz Koşu Oyunu</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="game-container">
+        <canvas id="gameCanvas" width="800" height="400"></canvas>
+        <div id="ui-layer">
+            <div id="stats">
+                <div id="level-ui">Level: <span id="level-num">1</span></div>
+                <div id="score">Skor: 0</div>
+                <div id="coin-ui">💰 <span id="coin-count">0</span></div>
+            </div>
+            <div id="game-controls">
+                <button id="guide-btn" title="Oyun Kılavuzu">📖</button>
+                <button id="mute-btn" title="Sesi Aç/Kapat">🔊</button>
+                <button id="pause-btn" title="Durdur">⏸️</button>
+                <button id="restart-btn" title="Yeniden Başlat">🔄</button>
+            </div>
+            <div id="pause-overlay" style="display: none;">
+                <h1>DURAKLАТILDI</h1>
+                <canvas id="pause-char-canvas" width="100" height="100"></canvas>
+                <p>Devam etmek için P, ESC veya ⏸️ butonuna basın</p>
+            </div>
+            <div id="game-over" style="display: none;">
+                <h1>OYUN BİTTİ</h1>
+                <canvas id="gameover-char-canvas" width="100" height="100"></canvas>
+                <p>Yeniden başlamak için butona basın</p>
+                <button id="gameover-restart">Yeniden Başla</button>
+            </div>
+            <div id="restart-overlay" style="display: none;">
+                <h1>EMİN MİSİNİZ?</h1>
+                <p>Oyun ilerlemeniz kaybolacak.</p>
+                <div class="overlay-buttons">
+                    <button id="restart-yes">EVET</button>
+                    <button id="restart-no">HAYIR</button>
+                </div>
+            </div>
+            <div id="countdown-overlay" style="display: none;">
+                <div id="countdown-number">3</div>
+            </div>
+            <div id="level-complete" style="display: none;">
+                <h1 id="level-complete-title">SEVİYE TAMAMLANDI!</h1>
+                <p id="level-complete-info">Sıradaki Seviye: 2</p>
+                <button id="next-level-btn">BAŞLA</button>
+            </div>
+            <div id="guide-overlay" style="display: none;">
+                <h1>OYUN KILAVUZU</h1>
+                <div class="guide-slider-container">
+                    <button id="guide-prev" class="guide-nav-btn">◀</button>
+                    <div class="guide-slider-viewport">
+                        <div class="guide-slider-track" id="guide-track">
+                            <div class="guide-slide">
+                                <div class="guide-icon">🏃‍♂️</div>
+                                <h2>Level 1-2: Temel Kontroller</h2>
+                                <p>Engelli koşuya başla! Zıplamak için <strong>Boşluk</strong> veya <strong>Yukarı ok</strong>, eğilmek için <strong>Aşağı ok</strong> tuşunu kullan.</p>
+                            </div>
+                            <div class="guide-slide">
+                                <div class="guide-icon">🧲</div>
+                                <h2>Level 3: Mıknatıs</h2>
+                                <p>Mıknatıs güçlendirmesi açılır! Aldığında etrafındaki tüm altınları zahmetsizce kendine çeker.</p>
+                            </div>
+                            <div class="guide-slide">
+                                <div class="guide-icon">🛡️</div>
+                                <h2>Level 4: Kalkan</h2>
+                                <p>Kalkan güçlendirmesi açılır! Seni bir defalığına engellere çarpmaktan korur.</p>
+                            </div>
+                            <div class="guide-slide">
+                                <div class="guide-icon">✨</div>
+                                <h2>Level 5: 2X Çarpan</h2>
+                                <p>İki katı kazanç! Bu güçlendirme aktifken topladığın her altın ikiyle çarpılır.</p>
+                            </div>
+                            <div class="guide-slide">
+                                <div class="guide-icon">⚠️</div>
+                                <h2>Level 6: Dikenli Çukurlar</h2>
+                                <p>Yeni tehlike: Yere gömülü dikenli çukurlar! Üzerlerine basmamak için tam zamanında zıpla.</p>
+                            </div>
+                            <div class="guide-slide">
+                                <div class="guide-icon">🔥</div>
+                                <h2>Level 7: Kamp Ateşi</h2>
+                                <p>Yolun ortasında yanan kamp ateşlerine dikkat! Onlara değmeden üzerinden geç.</p>
+                            </div>
+                            <div class="guide-slide">
+                                <div class="guide-icon">💎</div>
+                                <h2>Level 8: Elmaslar</h2>
+                                <p>Çok değerli elmaslar belirmeye başlar. Her bir elmas tam <strong>5 Altın</strong> değerindedir!</p>
+                            </div>
+                            <div class="guide-slide">
+                                <div class="guide-icon">🚨</div>
+                                <h2>Level 9: Tehlikeli Bölge</h2>
+                                <p>Oyun bir anlığına kızarır ve hızlanır! Engeller sıklaşır ama Tehlikeli Bölgede tüm altınlar <strong>3 KAT</strong> değerlenir!</p>
+                            </div>
+                            <div class="guide-slide">
+                                <div class="guide-icon">🏆</div>
+                                <h2>Level 10: Final</h2>
+                                <p>Zirveye ulaştın! Oyun sonsuza kadar devam eder. Burada yanarsan oyun bitti yerine <strong>Zafer Ekranı</strong> görürsün!</p>
+                            </div>
+                        </div>
+                    </div>
+                    <button id="guide-next" class="guide-nav-btn">▶</button>
+                </div>
+                <div class="guide-dots" id="guide-dots"></div>
+                <button id="close-guide-btn">ANLADIM</button>
+            </div>
+            <!-- Mobile Touch Controls -->
+            <div id="mobile-controls">
+                <button id="crouch-btn" class="mobile-btn">EĞILME</button>
+                <button id="jump-btn" class="mobile-btn">ZIPLAMA</button>
+            </div>
+        </div>
+    </div>
+    <script src="game.js"></script>
+</body>
+
+</html>
