@@ -32,6 +32,12 @@
     mapContainer: document.getElementById("mapContainer"),
     feedback: document.getElementById("feedback"),
     questionCard: document.getElementById("questionCard"),
+    winOverlay: document.getElementById("winOverlay"),
+    winScore: document.getElementById("winScore"),
+    winWrong: document.getElementById("winWrong"),
+    restartGameBtn: document.getElementById("restartGameBtn"),
+    musicToggle: document.getElementById("musicToggle"),
+    bgMusic: document.getElementById("bgMusic"),
     counts: {
       correct: document.getElementById("correctCount"),
       wrong: document.getElementById("wrongCount"),
@@ -76,6 +82,8 @@
     bindMapInteractions();
     bindModes();
     bindStartOverlay();
+    bindWinOverlay();
+    bindMusicToggle();
     window.addEventListener("resize", handleResize);
     // Game will start when user clicks "Oyunu Başlat" in the overlay
   }
@@ -102,6 +110,52 @@
     ui.startGameBtn.addEventListener("click", function () {
       ui.startOverlay.classList.add("hidden");
       resetMode(state.pendingStartMode);
+    });
+  }
+
+  function bindWinOverlay() {
+    ui.restartGameBtn.addEventListener("click", function () {
+      ui.winOverlay.classList.add("hidden");
+      ui.startOverlay.classList.remove("hidden");
+    });
+  }
+
+  function bindMusicToggle() {
+    if (!ui.musicToggle) return;
+
+    // Create audio object dynamically
+    if (!state.bgAudio) {
+      state.bgAudio = new Audio("./assets/background_music.mp3");
+      state.bgAudio.loop = true;
+    }
+
+    ui.musicToggle.addEventListener("click", function () {
+      console.log("Müzik butonuna tıklandı.");
+      
+      if (!state.bgAudio) {
+        toast("Ses sistemi başlatılamadı.", "bad");
+        return;
+      }
+
+      if (state.bgAudio.paused) {
+        toast("Müzik başlatılıyor...", "warn");
+        
+        state.bgAudio.play().then(function() {
+          ui.musicToggle.classList.add("playing");
+          toast("Müzik Çalıyor! 🎶", "ok");
+        }).catch(function(err) {
+          console.error("Oynatma hatası:", err);
+          toast("Hata: " + err.message, "bad");
+          // If path is wrong, try fallback
+          if (err.message.includes("not found") || err.name === "NotSupportedError") {
+             toast("Dosya okunamıyor. Format MP3 mü?", "bad");
+          }
+        });
+      } else {
+        state.bgAudio.pause();
+        ui.musicToggle.classList.remove("playing");
+        toast("Müzik durduruldu.", "warn");
+      }
     });
   }
 
@@ -140,6 +194,7 @@
     ui.modeButtons.forEach(function (b) {
       b.classList.toggle("active", b.dataset.mode === mode);
     });
+    ui.winOverlay.classList.add("hidden");
 
     if (mode === "classic") {
       state.classicTopCapacity = computeClassicTopCapacity();
@@ -215,20 +270,20 @@
   }
 
   function createProvinceChip(p) {
-      const chip = document.createElement("button");
-      chip.className = "province-chip";
-      chip.draggable = true;
-      chip.textContent = p.name;
-      chip.dataset.code = p.code;
-      chip.addEventListener("dragstart", function (e) { e.dataTransfer.setData("text/plain", p.code); });
-      chip.addEventListener("click", function () {
-        state.selectedCode = p.code;
-        getAllChips().forEach(function (n) {
-          n.classList.toggle("selected", n.dataset.code === p.code);
-        });
-        toast(p.name + " seçildi. Haritada bir ile tıkla veya bırak.", "warn");
+    const chip = document.createElement("button");
+    chip.className = "province-chip";
+    chip.draggable = true;
+    chip.textContent = p.name;
+    chip.dataset.code = p.code;
+    chip.addEventListener("dragstart", function (e) { e.dataTransfer.setData("text/plain", p.code); });
+    chip.addEventListener("click", function () {
+      state.selectedCode = p.code;
+      getAllChips().forEach(function (n) {
+        n.classList.toggle("selected", n.dataset.code === p.code);
       });
-      return chip;
+      toast(p.name + " seçildi. Haritada bir ile tıkla veya bırak.", "warn");
+    });
+    return chip;
   }
 
   function computeClassicTopCapacity() {
@@ -299,6 +354,23 @@
     }
     updateStats();
     toast("Harika! Doğru il.", "ok");
+    checkWinCondition();
+  }
+
+  function checkWinCondition() {
+    if (state.solved.size === mapModel.provinces.length) {
+      setTimeout(showWinScreen, 800);
+    }
+  }
+
+  function showWinScreen() {
+    ui.winScore.textContent = String(state.score);
+    ui.winWrong.textContent = String(state.wrong);
+    ui.winOverlay.classList.remove("hidden");
+    
+    // Confetti effect (visual only)
+    clearMediumHighlight();
+    ui.questionCard.classList.add("hidden");
   }
 
   function onWrong(targetCode, droppedOnCode) {
@@ -491,26 +563,40 @@
     const target = mapModel.byCode[code];
     if (!target) return;
 
+    const isLandscape = window.innerHeight < 600 && window.innerWidth > window.innerHeight;
     const targetBox = getProvinceBBox(target);
     const mapRect = ui.mapContainer.getBoundingClientRect();
     const stageRect = ui.mapContainer.parentElement.getBoundingClientRect();
-    const cardWidth = 360;
-    const margin = 16;
+    const cardWidth = isLandscape ? Math.min(300, window.innerWidth * 0.45) : 360;
+    const margin = isLandscape ? 8 : 16;
 
     const targetCenterX = mapRect.left + targetBox.x + targetBox.width / 2;
     const targetCenterY = mapRect.top + targetBox.y + targetBox.height / 2;
 
-    const spaceRight = stageRect.right - targetCenterX;
-    const spaceLeft = targetCenterX - stageRect.left;
+    const stageCenterX = stageRect.left + stageRect.width / 2;
 
-    let rightPx = margin;
+    let rightPx = null;
     let leftPx = null;
-    if (spaceLeft > spaceRight && spaceLeft > cardWidth + margin) {
+    
+    // Anti-overlap logic: If city is on the right half, put card on the left, and vice versa.
+    if (targetCenterX > stageCenterX) {
+      // City is on the right, put card on the left
       leftPx = margin;
-      rightPx = null;
+    } else {
+      // City is on the left, put card on the right
+      rightPx = margin;
     }
 
-    const relY = Math.max(margin, Math.min(targetCenterY - stageRect.top - 90, stageRect.height - 220));
+    // Vertical positioning
+    let relY;
+    if (isLandscape) {
+      const cardHeight = ui.questionCard.offsetHeight || 250;
+      relY = targetCenterY - stageRect.top - (cardHeight / 2);
+      relY = Math.max(margin, Math.min(relY, stageRect.height - cardHeight - margin));
+    } else {
+      relY = Math.max(margin, Math.min(targetCenterY - stageRect.top - 90, stageRect.height - 220));
+    }
+
     ui.questionCard.style.top = String(relY) + "px";
     if (rightPx !== null) {
       ui.questionCard.style.right = String(rightPx) + "px";
