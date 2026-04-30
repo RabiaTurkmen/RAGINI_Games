@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="tr">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Harita Canavarı</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+
+<body>
+  <div class="app">
+    <header class="topbar">
+      <h1>Harita Canavarı</h1>
+      <div class="mode-switch" role="tablist" aria-label="Oyun Modlari">
+        <button class="mode-btn active" data-mode="classic">Klasik Mod</button>
+        <button class="mode-btn" data-mode="medium">Orta Mod</button>
+        <button class="mode-btn" data-mode="hard">Zor Mod</button>
+      </div>
+    </header>
+
+    <section class="stats">
+      <div class="stat"><span>Doğru</span><strong id="correctCount">0</strong></div>
+      <div class="stat"><span>Yanlış</span><strong id="wrongCount">0</strong></div>
+      <div class="stat"><span>Kalan</span><strong id="remainingCount">81</strong></div>
+      <div class="stat score"><span>Skor</span><strong id="scoreCount">0</strong></div>
+    </section>
+
+    <main class="layout">
+      <section class="map-stage">
+        <div class="mode-head">
+          <h2 id="panelTitle">Klasik Mod</h2>
+          <p id="panelHint">Listeden bir il sec ve harita uzerine birak.</p>
+          <div id="dragTokenWrap"></div>
+        </div>
+        <div id="provinceListTop" class="province-list rail"></div>
+        <div id="feedback" class="feedback" aria-live="polite"></div>
+        <div id="questionCard" class="question-card hidden"></div>
+        <div id="mapContainer" class="map-wrap" aria-label="Turkiye haritasi"></div>
+        <div id="provinceListBottom" class="province-list rail"></div>
+      </section>
+    </main>
+
+    <div id="startOverlay" class="start-overlay">
+      <div class="start-card">
+        <h2>Modunu Seç</h2>
+        <p>Oyunu başlatmak için önce bir mod seç.</p>
+        <div class="start-modes">
+          <button class="start-mode-btn selected" data-start-mode="classic">
+            <strong>Klasik Mod</strong>
+            <span>Listeden il seç, haritaya bırak.</span>
+          </button>
+          <button class="start-mode-btn" data-start-mode="medium">
+            <strong>Orta Mod</strong>
+            <span>İşaretli ilin adını seçeneklerden bul.</span>
+          </button>
+          <button class="start-mode-btn" data-start-mode="hard">
+            <strong>Zor Mod</strong>
+            <span>İsmi verilen ili haritada bul.</span>
+          </button>
+        </div>
+        <button id="startGameBtn" class="start-game-btn">Oyunu Başlat</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="./js/turkiye-map-inline.js"></script>
+  <script src="./js/app.js"></script>
+</body>
+
+</html>

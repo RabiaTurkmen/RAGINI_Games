@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tatlı Pastane - Nostaljik Pasta Yapma</title>
+    <!-- Modern, sweet fonts for the cute aesthetic -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Quicksand:wght@400;700&family=Nunito:wght@400;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div id="app" class="app-container">
+
+        <!-- ANA MENÜ EKRANI -->
+        <section id="screen-menu" class="screen active">
+            <div class="menu-content">
+                <h1 class="logo-title">Tatlı<br>Pastane</h1>
+                <p class="subtitle">Nostaljik Lezzetler Fabrikası!</p>
+                <div class="decorative-cake">🍰</div>
+                <button id="btn-start" class="btn-toy btn-primary pulse-anim">Oyuna Başla</button>
+            </div>
+        </section>
+
+        <!-- OYUN EKRANI -->
+        <section id="screen-game" class="screen hidden">
+            <header class="game-header">
+                <div class="status-badge score-badge">
+                    <span class="icon">🏆</span> Puan: <strong id="score">0</strong>
+                </div>
+
+                <div class="progress-wrapper">
+                    <div class="progress-labels">
+                        <span id="patience-label">⏳ Müşteri Sabrı</span>
+                        <span class="level-indicator">Seviye: <strong id="level-display">1</strong></span>
+                    </div>
+                    <div class="timer-bar-bg">
+                        <div id="patience-fill" class="timer-bar-fill"></div>
+                    </div>
+                </div>
+
+                <div class="status-badge lives-badge">
+                    <span class="icon">❤️</span> Hak: <strong id="lives">3</strong>
+                </div>
+            </header>
+
+            <main class="game-workspace">
+                <!-- Sol: Sipariş (Hedef Pasta) -->
+                <div class="panel order-panel">
+                    <div class="pin"></div>
+                    <h2 id="order-title">Sipariş Kartı</h2>
+                    <div class="cake-display target-display">
+                        <div id="target-cake-container" class="cake-wrapper"></div>
+                        <div id="memory-overlay" class="memory-overlay hidden">
+                            <span>❓</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sağ: Senin Pastan -->
+                <div class="panel player-panel">
+                    <h2>Senin Pastan</h2>
+                    <div class="cake-display player-display">
+                        <div id="player-cake-container" class="cake-wrapper"></div>
+                    </div>
+                </div>
+            </main>
+
+            <!-- Alt: Butonlar / Kontrol Paneli -->
+            <footer class="controls-panel">
+                <div class="action-bar-top">
+                    <button id="btn-undo" class="btn-toy btn-small btn-danger"><span class="icon">↩️</span> Geri Al</button>
+                    <button id="btn-submit" class="btn-toy btn-small btn-success"><span class="icon">✅</span> SİPARİŞİ TESLİM ET</button>
+                </div>
+                <div class="controls-scroll-wrapper">
+                    <div class="control-group config-shape">
+                        <h3>1. Taban Seç</h3>
+                        <div class="btn-row">
+                            <button class="btn-item locked" data-category="shape" data-val="yuvarlak"
+                                title="Yuvarlak">⭕</button>
+                            <button class="btn-item locked" data-category="shape" data-val="kare"
+                                title="Kare">⏹️</button>
+                        </div>
+                    </div>
+
+                    <div class="control-group config-flavor">
+                        <h3>2. Katman Koy</h3>
+                        <div class="btn-row">
+                            <button class="btn-item color-btn locked" data-category="flavor" data-val="sade"
+                                style="--base-color: #fce2a8;"></button>
+                            <button class="btn-item color-btn locked" data-category="flavor" data-val="kakaolu"
+                                style="--base-color: #6b4423;"></button>
+                            <button class="btn-item color-btn locked" data-category="flavor" data-val="cilekli"
+                                style="--base-color: #ffb6c1;"></button>
+                            <button class="btn-item color-btn locked" data-category="flavor" data-val="fistikli"
+                                style="--base-color: #b8e0b0;"></button>
+                            <button class="btn-item color-btn locked" data-category="flavor" data-val="yabanmersini"
+                                style="--base-color: #b9a0e8;"></button>
+                        </div>
+                    </div>
+
+                    <div class="control-group config-cream">
+                        <h3>3. Krema Sık</h3>
+                        <div class="btn-row">
+                            <button class="btn-item color-btn has-drip locked" data-category="cream" data-val="beyaz"
+                                style="--base-color: #ffffff;"></button>
+                            <button class="btn-item color-btn has-drip locked" data-category="cream" data-val="cikolata"
+                                style="--base-color: #4a2e16;"></button>
+                            <button class="btn-item color-btn has-drip locked" data-category="cream" data-val="meyveli"
+                                style="--base-color: #ff69b4;"></button>
+                            <button class="btn-item color-btn has-drip locked" data-category="cream" data-val="nane"
+                                style="--base-color: #a8ffcc;"></button>
+                            <button class="btn-item color-btn has-drip locked" data-category="cream" data-val="karamel"
+                                style="--base-color: #f39c12;"></button>
+                        </div>
+                    </div>
+
+                    <div class="control-group config-topping">
+                        <h3>4. Süsle</h3>
+                        <div class="btn-row">
+                            <button class="btn-item locked" data-category="topping" data-val="kiraz">🍒</button>
+                            <button class="btn-item locked" data-category="topping" data-val="cilek">🍓</button>
+                            <button class="btn-item locked" data-category="topping" data-val="seker">🍬</button>
+                            <button class="btn-item locked" data-category="topping" data-val="parca">🍫</button>
+                            <button class="btn-item locked" data-category="topping" data-val="mum">🕯️</button>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </section>
+
+        <!-- OYUN SONU EKRANI -->
+        <section id="screen-gameover" class="screen hidden">
+            <div class="menu-content game-over-card">
+                <h1 class="logo-title" style="color: #ff4757; text-shadow: 4px 4px 0 #fff, 6px 6px 0 #c0392b;">Oyun
+                    Bitti!</h1>
+                <div class="decorative-cake" style="margin-top: 0;">😭</div>
+
+                <div class="stats-card">
+                    <div class="stat-row">
+                        <span>🏆 Ulaştığın Seviye:</span>
+                        <strong id="final-level" style="color:var(--primary);">1</strong>
+                    </div>
+                    <div class="stat-row">
+                        <span>✨ Toplam Puan:</span>
+                        <strong id="final-score" style="color:var(--success);">0</strong>
+                    </div>
+                </div>
+
+                <button id="btn-restart" class="btn-toy btn-primary pulse-anim" style="margin-top: 10px;">Tekrar
+                    Dene</button>
+            </div>
+        </section>
+
+        <!-- LEVEL UP / FEEDBACK EKRANI -->
+        <div id="feedback-overlay" class="feedback-overlay hidden">
+            <div id="feedback-content" class="feedback-card">
+                <span id="feedback-emoji" class="feedback-icon" style="font-size: 7rem;">✅</span>
+                <h2 id="feedback-text" style="font-size: 2.8rem; margin: 10px 0;">Harika!</h2>
+                <p id="feedback-subtext"
+                    style="font-weight: 900; color: var(--primary-dark); font-size: 1.3rem; margin: 0;"></p>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
