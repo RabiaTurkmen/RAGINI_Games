@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#ff8fc9" />
+  <title>Frosty Climb</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <main class="app">
+    <div class="side-scene side-scene-left" aria-hidden="true">
+      <div class="side-cloud cloud-a"></div>
+      <div class="side-platform platform-vanilla"></div>
+      <div class="side-platform platform-mint"></div>
+      <div class="ice-stack stack-left">
+        <span class="scoop scoop-pink"></span>
+        <span class="scoop scoop-cream"></span>
+        <span class="cone"></span>
+      </div>
+      <div class="wafer-tile tile-a"></div>
+      <div class="candy-stick candy-a"></div>
+      <div class="sparkle sparkle-a"></div>
+      <div class="sparkle sparkle-b"></div>
+    </div>
+    <section class="game-shell" id="gameShell" aria-label="Frosty Climb oyun alanı">
+      <canvas id="gameCanvas" width="480" height="800"></canvas>
+
+      <button id="soundToggle" class="icon-btn floating-btn" aria-label="Sesi aç veya kapat">
+        🔊
+      </button>
+
+      <div id="hud" class="hud hidden">
+        <div class="hud-left">
+          <div class="stat-pill">
+            <span>Skor</span>
+            <strong id="scoreValue">0</strong>
+          </div>
+          <div class="stat-pill">
+            <span>Kat</span>
+            <strong id="heightValue">0F</strong>
+          </div>
+        </div>
+
+        <div class="hud-right">
+          <div class="combo-pill" id="comboValue">Combo Hazır</div>
+          <button id="pauseBtn" class="icon-btn" aria-label="Oyunu duraklat">⏸</button>
+        </div>
+      </div>
+
+      <div id="startScreen" class="screen">
+        <div class="screen-card start-card">
+          <p class="eyebrow">En akışkan platform oyunu</p>
+          <h1>Frosty Climb</h1>
+          <p class="subtitle">
+            Eriyen dondurma platformlarında zirveye tırman, combo yakala ve en yüksek kata ulaş.
+          </p>
+
+          <div class="menu-stat">
+            <span>En yüksek skor</span>
+            <strong id="menuBestScore">0</strong>
+          </div>
+
+          <div class="screen-actions">
+            <button id="playBtn" class="primary-btn">Oyuna Başla</button>
+            <button id="howBtn" class="secondary-btn">Nasıl Oynanır?</button>
+          </div>
+
+          <p class="micro-copy">
+            Klavye: A / D / Space &nbsp;•&nbsp; Mobil: ekrandaki butonlar
+          </p>
+        </div>
+      </div>
+
+      <div id="howScreen" class="screen hidden">
+        <div class="screen-card how-card">
+          <h2>How to Play</h2>
+          <p class="subtitle small">
+            Hız kazan, yüksek zıpla ve eriyen platformlar seni bırakmadan sürekli yukarı çık.
+          </p>
+
+          <div class="tips-grid">
+            <div class="tip-card">A / ←<span>Sola git</span></div>
+            <div class="tip-card">D / →<span>Sağa git</span></div>
+            <div class="tip-card">Space / ↑<span>Zıpla</span></div>
+            <div class="tip-card">Wrap<span>Kenardan çık, öbür taraftan gir</span></div>
+          </div>
+
+          <div class="type-list">
+            <div><span class="swatch vanilla"></span>Vanilya: Standart platform, keyfini çıkarın.</div>
+            <div><span class="swatch strawberry"></span>Çilek: Biraz kaygan, dikkatli olun.</div>
+            <div><span class="swatch chocolate"></span>Çikolata: Daha geç erir, şanslısınız.</div>
+            <div><span class="swatch mint"></span>Nane: Hafif zıplatır, dikkatli olun.</div>
+            <div><span class="swatch rainbow"></span>Gökkuşağı: BONUS SKOR!</div>
+          </div>
+
+          <button id="backBtn" class="primary-btn narrow">Geri Dön</button>
+        </div>
+      </div>
+
+      <div id="pauseScreen" class="screen hidden">
+        <div class="screen-card pause-card">
+          <h2>Durduruldu</h2>
+          <div class="screen-actions vertical">
+            <button id="resumeBtn" class="primary-btn">Devam et</button>
+            <button id="restartBtn" class="secondary-btn">Yeniden başlat</button>
+            <button id="menuBtn" class="secondary-btn">Ana menü</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="gameOverScreen" class="screen hidden">
+        <div class="screen-card gameover-card">
+          <p class="eyebrow">Oops... dondurmalar eridi</p>
+          <h2>Oyun Bitti</h2>
+
+          <div class="result-grid">
+            <div class="result-item">
+              <span>Skor</span>
+              <strong id="finalScore">0</strong>
+            </div>
+            <div class="result-item">
+              <span>En yüksek skor</span>
+              <strong id="finalBestScore">0</strong>
+            </div>
+            <div class="result-item">
+              <span>En yüksek kat</span>
+              <strong id="finalFloor">0F</strong>
+            </div>
+            <div class="result-item">
+              <span>En uzun combo</span>
+              <strong id="finalCombo">0</strong>
+            </div>
+          </div>
+
+          <div class="screen-actions">
+            <button id="playAgainBtn" class="primary-btn">Tekrar oyna</button>
+            <button id="gameOverMenuBtn" class="secondary-btn">Ana menü</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="mobile-controls" aria-label="Mobil kontroller">
+        <div class="mobile-cluster left-cluster">
+          <button id="btnLeft" class="mobile-btn">◀</button>
+          <button id="btnRight" class="mobile-btn">▶</button>
+        </div>
+        <div class="mobile-cluster right-cluster">
+          <button id="btnJump" class="mobile-btn jump-btn">⤴</button>
+        </div>
+      </div>
+    </section>
+
+    <div class="side-scene side-scene-right" aria-hidden="true">
+      <div class="side-cloud cloud-b"></div>
+      <div class="side-platform platform-rainbow"></div>
+      <div class="side-platform platform-chocolate"></div>
+      <div class="ice-stack stack-right">
+        <span class="scoop scoop-blue"></span>
+        <span class="scoop scoop-pink"></span>
+        <span class="cone"></span>
+      </div>
+      <div class="wafer-tile tile-b"></div>
+      <div class="candy-stick candy-b"></div>
+      <div class="sparkle sparkle-c"></div>
+      <div class="sparkle sparkle-d"></div>
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
