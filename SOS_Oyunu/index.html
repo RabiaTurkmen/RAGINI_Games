@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SOS — Modern Bulmaca Oyunu</title>
+  <meta name="description" content="Klasik SOS oyununun modernleştirilmiş web versiyonu."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+<div id="particles-bg" aria-hidden="true"></div>
+
+<!-- HOME -->
+<div id="screen-home" class="screen active">
+  <div class="home-container">
+    <div class="logo-wrapper">
+      <div class="logo-glow"></div>
+      <h1 class="logo-text">
+        <span class="logo-s">S</span><span class="logo-o">O</span><span class="logo-s2">S</span>
+      </h1>
+      <p class="logo-sub">Modern Bulmaca Oyunu</p>
+    </div>
+    <div class="home-buttons">
+      <button id="btn-two-player" class="btn-primary" onclick="UI.goToSetup('two')">
+        <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+        İki Oyunculu
+      </button>
+      <button id="btn-vs-cpu" class="btn-secondary" onclick="UI.goToSetup('cpu')">
+        <svg viewBox="0 0 24 24"><path d="M20 18c1.1 0 1.99-.9 1.99-2L22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2H0v2h24v-2h-4zM4 6h16v10H4V6z"/></svg>
+        Bilgisayara Karşı
+      </button>
+    </div>
+    <p class="home-info">Yatay, dikey veya çapraz <strong>SOS</strong> oluştur, puan kazan!</p>
+  </div>
+</div>
+
+<!-- SETUP -->
+<div id="screen-setup" class="screen">
+  <div class="setup-container">
+    <button class="btn-back" onclick="UI.goHome()">
+      <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+      Geri
+    </button>
+    <h2 class="setup-title">Oyun Kurulumu</h2>
+
+    <div class="players-setup">
+      <!-- Player 1 -->
+      <div class="player-card" id="player1-card">
+        <div class="player-card-header"><div class="player-number p1-color">Oyuncu 1</div></div>
+        <div class="player-field">
+          <label>İsim</label>
+          <input type="text" id="p1-name" placeholder="İsminizi girin" maxlength="15" autocomplete="off"/>
+        </div>
+        <div class="player-field">
+          <label>Simge Seç</label>
+          <div class="icon-grid" id="p1-icon-grid"></div>
+        </div>
+      </div>
+
+      <div class="vs-divider">VS</div>
+
+      <!-- Player 2 -->
+      <div class="player-card" id="player2-card">
+        <div class="player-card-header" id="p2-card-header">
+          <div class="cpu-icon-display" id="cpu-icon-display" style="display:none"></div>
+          <div class="player-number p2-color" id="p2-label">Oyuncu 2</div>
+        </div>
+        <div class="player-field" id="p2-name-field">
+          <label>İsim</label>
+          <input type="text" id="p2-name" placeholder="İsminizi girin" maxlength="15" autocomplete="off"/>
+        </div>
+        <div class="player-field" id="p2-icon-field">
+          <label>Simge Seç</label>
+          <div class="icon-grid" id="p2-icon-grid"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="settings-panel">
+      <div class="settings-row">
+        <div class="setting-group">
+          <label class="setting-label">Grid Boyutu</label>
+          <div class="toggle-group" id="grid-toggle">
+            <button class="toggle-btn active" data-value="3" onclick="UI.selectSetting('grid','3',this)">3×3</button>
+            <button class="toggle-btn" data-value="5" onclick="UI.selectSetting('grid','5',this)">5×5</button>
+          </div>
+        </div>
+        <div class="setting-group">
+          <label class="setting-label">Zorluk</label>
+          <div class="toggle-group" id="difficulty-toggle">
+            <button class="toggle-btn active" data-value="easy" onclick="UI.selectSetting('difficulty','easy',this)">Kolay</button>
+            <button class="toggle-btn" data-value="medium" onclick="UI.selectSetting('difficulty','medium',this)">Orta</button>
+            <button class="toggle-btn" data-value="hard" onclick="UI.selectSetting('difficulty','hard',this)">Zor</button>
+          </div>
+        </div>
+      </div>
+      <div class="difficulty-info" id="difficulty-info">
+        <span class="diff-badge easy-badge">✓ Süre yok · Serbest oyun</span>
+      </div>
+    </div>
+
+    <button id="btn-start-game" class="btn-start" onclick="Game.start()">
+      <span>Oyunu Başlat</span>
+      <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+    </button>
+  </div>
+</div>
+
+<!-- GAME -->
+<div id="screen-game" class="screen">
+  <div class="game-hud">
+    <button class="btn-hud-back" onclick="UI.confirmQuit()" title="Çık">
+      <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+    </button>
+
+    <div class="score-panel-hidden" style="display:none">
+      <div id="score-icon-1"></div><div id="score-name-1"></div><div id="score-points-1"></div><div id="combo-badge-1"></div>
+      <div id="score-icon-2"></div><div id="score-name-2"></div><div id="score-points-2"></div><div id="combo-badge-2"></div>
+    </div>
+
+    <div class="timer-wrapper" id="timer-wrapper">
+      <div class="timer-ring">
+        <svg viewBox="0 0 44 44">
+          <circle cx="22" cy="22" r="18" class="timer-ring-bg"/>
+          <circle cx="22" cy="22" r="18" class="timer-ring-fill" id="timer-ring-fill"/>
+        </svg>
+        <span class="timer-text" id="timer-text">10</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="turn-indicator" id="turn-indicator">
+    <div class="turn-inner">
+      <span class="turn-icon" id="turn-icon"></span>
+      <span class="turn-name" id="turn-name">Oyuncu 1</span>
+      <span class="turn-label">oynuyor</span>
+    </div>
+    <div class="letter-hint" id="letter-hint"></div>
+  </div>
+
+  <div class="game-layout">
+    <div class="side-player-card p1-side" id="side-card-1">
+      <div class="side-card-glow"></div>
+      <div class="side-card-header">
+        <div class="side-card-icon" id="side-icon-1"></div>
+        <div class="side-card-name" id="side-name-1">Oyuncu 1</div>
+      </div>
+      <div class="side-card-body">
+        <div class="side-card-score" id="side-score-1">0</div>
+        <div class="side-combo" id="side-combo-1"></div>
+      </div>
+    </div>
+
+    <div class="board-wrapper">
+      <div class="board" id="board"></div>
+      <div class="final-phase-banner" id="final-phase-banner" style="display:none">🔥 FINAL FAZI — Ekstra Puan!</div>
+    </div>
+
+    <div class="side-player-card p2-side" id="side-card-2">
+      <div class="side-card-glow"></div>
+      <div class="side-card-header">
+        <div class="side-card-icon" id="side-icon-2"></div>
+        <div class="side-card-name" id="side-name-2">Oyuncu 2</div>
+      </div>
+      <div class="side-card-body">
+        <div class="side-card-score" id="side-score-2">0</div>
+        <div class="side-combo" id="side-combo-2"></div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="actions-bar">
+    <button class="action-btn hint-btn" id="btn-hint" onclick="Game.useHint()" title="İpucu">
+      <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/></svg>
+      İpucu <span class="action-count" id="hint-count">2</span>
+    </button>
+    <button class="action-btn special-btn" id="btn-time-extend" onclick="Game.useSpecial('timeExtend')" title="+5 Saniye (−1 puan)">
+      <svg viewBox="0 0 24 24"><path d="M15 1H9v2h6V1zm-4 13h2V8h-2v6zm8.03-6.61l1.42-1.42c-.43-.51-.9-.99-1.41-1.41l-1.42 1.42C16.07 4.74 14.12 4 12 4c-4.97 0-9 4.03-9 9s4.02 9 9 9 9-4.03 9-9c0-2.12-.74-4.07-1.97-5.61zM12 20c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7z"/></svg>
+      +5sn
+    </button>
+    <button class="action-btn special-btn" id="btn-lock-cell" onclick="Game.useSpecial('lockCell')" title="Hücre Kilitle">
+      <svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+      Kilitle
+    </button>
+    <button class="action-btn special-btn" id="btn-change-letter" onclick="Game.useSpecial('changeLetter')" title="Harf Değiştir">
+      <svg viewBox="0 0 24 24"><path d="M6.99 11L3 15l3.99 4v-3H14v-2H6.99v-3zM21 9l-3.99-4v3H10v2h7.01v3L21 9z"/></svg>
+      Değiştir
+    </button>
+  </div>
+
+  <div class="lock-mode-banner" id="lock-mode-banner" style="display:none">
+    🔒 Kilitlenecek hücreyi seçin
+    <button onclick="Game.cancelLockMode()">İptal</button>
+  </div>
+</div>
+
+<!-- RESULTS -->
+<div id="screen-results" class="screen">
+  <div class="results-container">
+    <div class="results-trophy" id="results-trophy">🏆</div>
+    <h2 class="results-winner" id="results-winner">Oyuncu 1 Kazandı!</h2>
+    <p class="results-subtitle" id="results-subtitle"></p>
+    <div class="results-scores" id="results-scores"></div>
+    <div class="results-stats">
+      <h3>Oyun İstatistikleri</h3>
+      <div class="stats-grid" id="stats-grid"></div>
+    </div>
+    <div class="results-buttons">
+      <button class="btn-primary" onclick="Game.playAgain()">
+        <svg viewBox="0 0 24 24"><path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/></svg>
+        Tekrar Oyna
+      </button>
+      <button class="btn-secondary" onclick="UI.goHome()">
+        <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+        Ana Menü
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- MODALS -->
+<div class="modal-overlay" id="modal-quit" style="display:none">
+  <div class="modal-box">
+    <h3>Oyundan Çık?</h3>
+    <p>Mevcut oyun kaydedilmeyecek.</p>
+    <div class="modal-buttons">
+      <button class="btn-danger" onclick="UI.goHome()">Çık</button>
+      <button class="btn-secondary" onclick="UI.closeModal('modal-quit')">Devam Et</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast" aria-live="polite"></div>
+
+<script src="game.js"></script>
+</body>
+</html>
