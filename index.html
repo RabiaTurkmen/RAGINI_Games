@@ -1754,94 +1754,9 @@
                     </p>
                 </div>
 
-                <!-- Trend Cards Grid -->
-                <div class="row g-4">
-
-                    <!-- #1 -->
-                    <div class="col-12 col-md-4">
-                        <article class="soft-card trend-card">
-                            <div class="trend-card-top" style="background:linear-gradient(135deg,#ffedf5,#eddeff);">
-                                <div class="trend-num" style="background:rgba(255,255,255,0.8);color:#c06fa0;">#01</div>
-                                <span class="pill"
-                                    style="background:rgba(255,255,255,0.72);border-color:transparent;font-size:0.8rem;padding:6px 12px;margin-bottom:10px;display:inline-flex;">
-                                    <i class="bi bi-fire" style="color:#f07060;"></i>&nbsp;En Çok Oynanan
-                                </span>
-                                <h3
-                                    style="font-family:var(--font-heading);font-size:1.3rem;margin:10px 0 6px;color:var(--heading);">
-                                    Bubble Hop</h3>
-                                <p style="color:var(--muted);font-size:0.92rem;line-height:1.65;margin:0;">Hızlı, kołay
-                                    ve neşeli oynanışıyla günün en sevilen &nbsp;oyunu!</p>
-                            </div>
-                            <div class="trend-card-bottom">
-                                <div class="trend-stats" style="margin-top:0;">
-                                    <span class="trend-chip"><i class="bi bi-people-fill"></i> 9.4K</span>
-                                    <span class="trend-chip"><i class="bi bi-star-fill" style="color:#f5c842;"></i>
-                                        4.9</span>
-                                    <span class="trend-chip"><i class="bi bi-lightning-charge-fill"
-                                            style="color:#a080e0;"></i> Hızlı</span>
-                                </div>
-                                <a href="#" class="trend-play-btn"><i class="bi bi-play-fill"></i> Oyna</a>
-                            </div>
-                        </article>
-                    </div>
-
-                    <!-- #2 -->
-                    <div class="col-12 col-md-4">
-                        <article class="soft-card trend-card">
-                            <div class="trend-card-top" style="background:linear-gradient(135deg,#ffe4f1,#fff8d6);">
-                                <div class="trend-num" style="background:rgba(255,255,255,0.8);color:#d66a9a;">#02</div>
-                                <span class="pill"
-                                    style="background:rgba(255,255,255,0.72);border-color:transparent;font-size:0.8rem;padding:6px 12px;margin-bottom:10px;display:inline-flex;">
-                                    <i class="bi bi-stars" style="color:#f7aed0;"></i>&nbsp;Yeni Gelen
-                                </span>
-                                <h3
-                                    style="font-family:var(--font-heading);font-size:1.3rem;margin:10px 0 6px;color:var(--heading);">
-                                    Cake Maker</h3>
-                                <p style="color:var(--muted);font-size:0.92rem;line-height:1.65;margin:0;">En tatlı
-                                    tariflerle harika pastalar tasarla ve neşeli bir şef ol!</p>
-                            </div>
-                            <div class="trend-card-bottom">
-                                <div class="trend-stats" style="margin-top:0;">
-                                    <span class="trend-chip"><i class="bi bi-people-fill"></i> 0.8K</span>
-                                    <span class="trend-chip"><i class="bi bi-star-fill" style="color:#f5c842;"></i>
-                                        5.0</span>
-                                    <span class="trend-chip"><i class="bi bi-cake2-fill" style="color:#f7aed0;"></i>
-                                        Arcade</span>
-                                </div>
-                                <a href="Pasta_Yapma/index.html" class="trend-play-btn"><i class="bi bi-play-fill"></i>
-                                    Oyna</a>
-                            </div>
-                        </article>
-                    </div>
-
-                    <!-- #3 -->
-                    <div class="col-12 col-md-4">
-                        <article class="soft-card trend-card">
-                            <div class="trend-card-top" style="background:linear-gradient(135deg,#fff8d6,#ffe4f8);">
-                                <div class="trend-num" style="background:rgba(255,255,255,0.8);color:#c08040;">#03</div>
-                                <span class="pill"
-                                    style="background:rgba(255,255,255,0.72);border-color:transparent;font-size:0.8rem;padding:6px 12px;margin-bottom:10px;display:inline-flex;">
-                                    <i class="bi bi-heart-fill" style="color:#e06090;"></i>&nbsp;Aile Favorisi
-                                </span>
-                                <h3
-                                    style="font-family:var(--font-heading);font-size:1.3rem;margin:10px 0 6px;color:var(--heading);">
-                                    Rainbow Steps</h3>
-                                <p style="color:var(--muted);font-size:0.92rem;line-height:1.65;margin:0;">Basit
-                                    kontrolleri ve renkli görünümüyle birlikte oynamaya en uygun seçenek!</p>
-                            </div>
-                            <div class="trend-card-bottom">
-                                <div class="trend-stats" style="margin-top:0;">
-                                    <span class="trend-chip"><i class="bi bi-people-fill"></i> 7.2K</span>
-                                    <span class="trend-chip"><i class="bi bi-star-fill" style="color:#f5c842;"></i>
-                                        4.8</span>
-                                    <span class="trend-chip"><i class="bi bi-house-heart-fill"
-                                            style="color:#e080a0;"></i> Aile</span>
-                                </div>
-                                <a href="#" class="trend-play-btn"><i class="bi bi-play-fill"></i> Oyna</a>
-                            </div>
-                        </article>
-                    </div>
-
+                <!-- Trend Cards Grid (dynamically rendered) -->
+                <div class="row g-4" id="trendGrid">
+                    <!-- Filled by JS -->
                 </div>
             </div>
         </section>
@@ -2203,7 +2118,7 @@
                 category: 'Platform',
                 categoryIcon: 'bi-bounding-box',
                 image: 'assets/zippys_adventure_logo.png',
-                path: 'Mario/index.html',
+                path: 'ZippysAdventure/index.html',
                 isNew: true,
                 thumbClass: 'thumb-1',
                 thumbIcon: 'bi-person-running',
@@ -2217,11 +2132,11 @@
                 category: 'Arcade',
                 categoryIcon: 'bi-lightning-charge-fill',
                 image: 'assets/zenith_slice_logo.png',
-                path: 'Zenith Slice/index.html',
+                path: 'ZenithSlice/index.html',
                 isNew: true,
                 thumbClass: 'thumb-4',
                 thumbIcon: 'bi-stars',
-                rating: '5.0',
+                rating: '4.97',
                 playCount: '0.4K'
             },
             {
@@ -2229,7 +2144,7 @@
                 title: 'Endless Runner',
                 description: 'Durmadan koş, engelleri aş ve en yüksek skoru yapmak için reflekslerini kullan.',
                 category: 'Platform',
-                categoryIcon: 'bi-person-running',
+                categoryIcon: 'bi-bounding-box',
                 image: 'assets/EndlessRunner.png',
                 path: 'EndlessRunner/index.html',
                 isNew: true,
@@ -2245,7 +2160,7 @@
                 category: 'Bulmaca',
                 categoryIcon: 'bi-puzzle-fill',
                 image: 'assets/sugar_nova_logo.png',
-                path: 'Sugar_Nova/index.html',
+                path: 'SugarNova/index.html',
                 isNew: true,
                 thumbClass: 'thumb-3',
                 thumbIcon: 'bi-puzzle-fill',
@@ -2253,27 +2168,27 @@
                 playCount: '2.1K'
             },
             {
-                id: 'pasta-yapma',
+                id: 'cake-maker',
                 title: 'Cake Maker',
                 description: 'Müşterilerin siparişlerine göre en lezzetli ve güzel pastaları hazırla, pastaneni büyüt!',
                 category: 'Arcade',
-                categoryIcon: 'bi-cake2-fill',
+                categoryIcon: 'bi-lightning-charge-fill',
                 image: 'assets/cake_maker.png',
-                path: 'Pasta_Yapma/index.html',
+                path: 'CakeMaker/index.html',
                 isNew: true,
                 thumbClass: 'thumb-5',
                 thumbIcon: 'bi-cake2',
-                rating: '5.0',
+                rating: '4.98',
                 playCount: '0.8K'
             },
             {
-                id: 'sos-oyunu',
+                id: 'sos-master',
                 title: 'SOS Master',
                 description: 'Klasik SOS oyununu modern bir tasarımla deneyimle. Arkadaşınla veya bilgisayara karşı oyna!',
                 category: 'Bulmaca',
                 categoryIcon: 'bi-puzzle-fill',
                 image: 'assets/sos_master.png',
-                path: 'SOS_Oyunu/index.html',
+                path: 'SOSMaster/index.html',
                 isNew: true,
                 thumbClass: 'thumb-2',
                 thumbIcon: 'bi-grid-3x3',
@@ -2281,18 +2196,46 @@
                 playCount: '1.5K'
             },
             {
-                id: 'turkiye-harita-oyunu',
+                id: 'turkiye-harita-canavarı',
                 title: 'Harita Canavarı',
                 description: 'Türkiye\'nin illerini eğlenceli bir şekilde öğren! Klasik, Orta ve Zor modlarda harita bilginle bir canavara dönüş.',
                 category: 'Bulmaca',
                 categoryIcon: 'bi-puzzle-fill',
                 image: 'assets/harita.png',
-                path: 'Turkiye_Harita_Oyunu/index.html',
+                path: 'HaritaCanavari/index.html',
                 isNew: true,
                 thumbClass: 'thumb-2',
                 thumbIcon: 'bi-map-fill',
-                rating: '5.0',
+                rating: '4.8',
                 playCount: '0.3K'
+            },
+            {
+                id: 'swallow-up',
+                title: 'Swallow Up',
+                description: 'Senden küçük balıkları yutarak büyü, büyük balıklardan kaç ve en büyük balık olmaya çalış!',
+                category: 'Arcade',
+                categoryIcon: 'bi-lightning-charge-fill',
+                image: 'assets/swallow_up_logo.png',
+                path: 'SwallowUp/index.html',
+                isNew: true,
+                thumbClass: 'thumb-2',
+                thumbIcon: 'bi-map-fill',
+                rating: '4.92',
+                playCount: '5.6K'
+            },
+            {
+                id: 'frosty-climb',
+                title: 'Frosty Climb',
+                description: 'Dondurma erimeden tırman, buzlu yolları aş ve en yüksek noktaya ulaşmaya çalış!',
+                category: 'Platform',
+                categoryIcon: 'bi-bounding-box',
+                image: 'assets/frosty_climb_logo.png',
+                path: 'FrostyClimb/index.html',
+                isNew: true,
+                thumbClass: 'thumb-2',
+                thumbIcon: 'bi-map-fill',
+                rating: '4.85',
+                playCount: '3.2K'
             },
             /* ── Sonraki oyunları buraya ekle ── */
         ];
@@ -2390,9 +2333,112 @@
             }
         }
 
+        /* ── Render Trending Games (3 random from GAMES) ── */
+        function renderTrendingGames() {
+            const grid = document.getElementById('trendGrid');
+            if (!grid || GAMES.length === 0) return;
+
+            const trendBgs = [
+                'linear-gradient(135deg,#ffedf5,#eddeff)',
+                'linear-gradient(135deg,#ffe4f1,#fff8d6)',
+                'linear-gradient(135deg,#fff8d6,#ffe4f8)'
+            ];
+            const numColors = ['#c06fa0', '#d66a9a', '#c08040'];
+            const badges = [
+                { icon: 'bi-fire', color: '#f07060', text: 'En Çok Oynanan' },
+                { icon: 'bi-stars', color: '#f7aed0', text: 'Yeni Gelen' },
+                { icon: 'bi-heart-fill', color: '#e06090', text: 'Aile Favorisi' }
+            ];
+
+            // Shuffle and pick 3
+            const shuffled = [...GAMES].sort(() => Math.random() - 0.5);
+            const picked = shuffled.slice(0, Math.min(3, shuffled.length));
+
+            grid.innerHTML = '';
+            picked.forEach((game, i) => {
+                const cat = CAT_COLORS[game.category] || { bg: 'linear-gradient(135deg,#ffd8e8,#d6ccff)', text: '#7b7099' };
+                const badge = badges[i % badges.length];
+                const col = document.createElement('div');
+                col.className = 'col-12 col-md-4';
+                col.innerHTML = `
+                    <article class="soft-card trend-card">
+                        <div class="trend-card-top" style="background:${trendBgs[i % trendBgs.length]};">
+                            <div class="trend-num" style="background:rgba(255,255,255,0.8);color:${numColors[i % numColors.length]};">#0${i + 1}</div>
+                            <span class="pill" style="background:rgba(255,255,255,0.72);border-color:transparent;font-size:0.8rem;padding:6px 12px;margin-bottom:10px;display:inline-flex;">
+                                <i class="bi ${badge.icon}" style="color:${badge.color};"></i>&nbsp;${badge.text}
+                            </span>
+                            <h3 style="font-family:var(--font-heading);font-size:1.3rem;margin:10px 0 6px;color:var(--heading);">
+                                ${game.title}</h3>
+                            <p style="color:var(--muted);font-size:0.92rem;line-height:1.65;margin:0;">${game.description}</p>
+                        </div>
+                        <div class="trend-card-bottom">
+                            <div class="trend-stats" style="margin-top:0;">
+                                <span class="trend-chip"><i class="bi bi-people-fill"></i> ${game.playCount}</span>
+                                <span class="trend-chip"><i class="bi bi-star-fill" style="color:#f5c842;"></i> ${game.rating}</span>
+                                <span class="trend-chip"><i class="bi ${game.categoryIcon}" style="color:${cat.text};"></i> ${game.category}</span>
+                            </div>
+                            <a href="${game.path}" target="_blank" rel="noopener" class="trend-play-btn"><i class="bi bi-play-fill"></i> Oyna</a>
+                        </div>
+                    </article>`;
+                grid.appendChild(col);
+            });
+        }
+
+        /* ── Category Cards: click to filter + scroll ── */
+        function setupCategoryCards() {
+            const catMap = {
+                'Arcade': 'Arcade',
+                'Bulmaca': 'Bulmaca',
+                'Yarış': 'Yarış',
+                'Macera': 'Macera',
+                'Aksiyon': 'Aksiyon',
+                'Platform': 'Platform'
+            };
+            document.querySelectorAll('#kategoriler .category-card').forEach(card => {
+                const h3 = card.querySelector('h3');
+                if (!h3) return;
+                const catName = h3.textContent.trim();
+                const filterVal = catMap[catName];
+                if (!filterVal) return;
+
+                card.style.cursor = 'pointer';
+                card.addEventListener('click', (e) => {
+                    if (e.target.closest('.cat-explore-btn')) {
+                        e.preventDefault();
+                    }
+                    // Activate the matching filter button
+                    document.querySelectorAll('.cat-filter-btn').forEach(b => b.classList.remove('active'));
+                    const matchBtn = document.querySelector(`.cat-filter-btn[data-cat="${filterVal}"]`);
+                    if (matchBtn) matchBtn.classList.add('active');
+                    // Render filtered games
+                    renderGames(filterVal);
+                    // Scroll to games section
+                    const target = document.getElementById('oyunlar');
+                    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                });
+
+                // Also handle the explore button
+                const exploreBtn = card.querySelector('.cat-explore-btn');
+                if (exploreBtn) {
+                    exploreBtn.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        document.querySelectorAll('.cat-filter-btn').forEach(b => b.classList.remove('active'));
+                        const matchBtn = document.querySelector(`.cat-filter-btn[data-cat="${filterVal}"]`);
+                        if (matchBtn) matchBtn.classList.add('active');
+                        renderGames(filterVal);
+                        const target = document.getElementById('oyunlar');
+                        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    });
+                }
+            });
+        }
+
         /* ── Init ── */
         renderGames('all');
         todaysGame();
+        renderTrendingGames();
+        setupCategoryCards();
 
         /* ── Navbar ── */
         const navbar = document.getElementById("siteNavbar");
