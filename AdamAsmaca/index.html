@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adam Asmaca</title>
+    <meta name="description"
+        content="Klasik adam asmaca oyunu modern ve şık bir arayüzle. Üç farklı oyun modu, kategori sistemi ve zorluk seviyeleri.">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- ============ HOME SCREEN ============ -->
+    <div id="home-screen" class="screen home-screen active">
+        <div class="home-header">
+            <h1>Adam Asmaca</h1>
+            <p>Klasik oyunu modern bir deneyimle keşfedin</p>
+        </div>
+
+        <div class="mode-grid">
+            <div class="mode-card" onclick="selectMode('pvp')">
+                <div class="mode-icon">👥</div>
+                <h3>Oyuncuya Karşı</h3>
+                <p>Bir oyuncu kelimeyi girer, diğeri tahmin eder. Arkadaşınıza karşı oynayın!</p>
+            </div>
+
+            <div class="mode-card" onclick="selectMode('solo')">
+                <div class="mode-icon">🤖</div>
+                <h3>Tek Oyunculu</h3>
+                <p>Bilgisayar rastgele bir kategori ve kelime seçer. Kelimeyi tahmin etmeye çalışın!</p>
+            </div>
+
+            <div class="mode-card" onclick="selectMode('race')">
+                <div class="mode-icon">🏁</div>
+                <h3>İki Oyunculu Yarış</h3>
+                <p>İki oyuncu sırayla tahmin yapar. Doğru tahminler puan kazandırır, en çok puanı toplayan kazanır!</p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ============ SETUP SCREEN ============ -->
+    <div id="setup-screen" class="screen setup-screen">
+        <button class="btn-back" onclick="goHome()">← Geri</button>
+        <div class="setup-container" id="setup-content">
+            <!-- Dynamically populated -->
+        </div>
+    </div>
+
+    <!-- ============ GAME SCREEN ============ -->
+    <div id="game-screen" class="screen game-screen">
+        <button class="btn-back" onclick="goHome()">← Ana Menü</button>
+
+        <div id="game-top-bar" class="game-top-bar"></div>
+
+        <div id="race-info"
+            style="display:none;flex-direction:column;align-items:center;gap:12px;width:100%;max-width:500px;"></div>
+
+        <div id="hangman-scene" class="hangman-scene"></div>
+
+        <div id="word-display" class="word-display"></div>
+
+        <div id="keyboard" class="keyboard"></div>
+    </div>
+
+    <!-- ============ RESULT OVERLAY ============ -->
+    <div id="result-overlay" class="result-overlay">
+        <div class="result-card" id="result-card-content">
+            <!-- Dynamically populated -->
+        </div>
+    </div>
+
+    <!-- ============ CONFETTI ============ -->
+    <div id="confetti-container" class="confetti-container"></div>
+
+    <script src="words.js"></script>
+    <script src="game.js"></script>
+</body>
+
+</html>
